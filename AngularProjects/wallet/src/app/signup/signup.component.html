@@ -1,0 +1,13 @@
+<app-navbar/>
+<div class="box">
+    <form class="signup-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <h1> Join MudraPay 💸</h1>
+        <input type="text" name="username" placeholder="New username" required formControlName="username">
+        <input type="password" name="password" placeholder="Enter Password - min 8 characters"  required formControlName="password">
+        <input type="text" name="mudraPin" placeholder="Set your 6-digit mudra pin"  required formControlName="mudraPin">
+        <input type="button" (click)="onSubmit()" name="Signup" value="Create my account 🚀">
+        <div class="links">
+            <a [routerLink]="'/login'">Already a user ? Log in</a>
+        </div>
+    </form>    
+</div>

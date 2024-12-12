@@ -1,0 +1,19 @@
+:host {
+    display: block;
+    /* positive margin  */
+    margin-top: -25px;
+    margin-bottom: -10px;
+    background-size: cover;
+    background-color: #222245;
+}
+.wallet-pay {
+    display: flex;
+    flex-direction: row;
+}
+.wallet-balance {
+    padding-top: 2rem;
+    margin-left: -100px;
+}
+.home-nav {
+    position: sticky;
+}

@@ -1,0 +1,36 @@
+<app-navbar />
+<div class="box">
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h1>Welcome👋</h1>
+    <input
+      type="text"
+      name="username"
+      placeholder="Enter Username"
+      required
+      formControlName="username"
+    />
+    <input
+      type="password"
+      name="password"
+      placeholder="Enter Password"
+      required
+      formControlName="password"
+    />
+    <input
+      type="password"
+      name="mudraPin"
+      placeholder="Enter 6-digit mudra pin"
+      required
+      formControlName="mudraPin"
+    />
+    <input type="button" (click)="onSubmit()" name="Login" value="Login 🚀" />
+    @if(loginFailed){
+    <p>Invalid Credentials entered!</p>
+    }
+    <div class="links">
+      <a [routerLink]="'/login/otp'">Forgot Password?</a>
+      <a [routerLink]="'/signup'">New user ? Sign Up</a>
+    </div>
+  </form>
+</div>
+<router-outlet />

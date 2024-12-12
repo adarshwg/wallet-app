@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="send-money">
+      <h2>Pay User 💸 <span></span></h2>
+      <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Username" formControlName="receiverUsername"/>
+        
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" placeholder="Amount" formControlName="amount" />
+
+        <label for="mudraPin">Mudra PIN</label>
+        <input type="password" id="mudraPin" placeholder="Mudra PIN" formControlName="mudraPin" />
+        <button type="submit">Send</button>
+      </form>
+  
+      <div class="predefined-buttons">
+        <button (click)="setAmount(100)" class="amount-btn" >₹100</button>
+        <button (click)="setAmount(500)" class="amount-btn">₹500</button>
+        <button (click)="setAmount(1000)" class="amount-btn">₹1000</button>
+      </div>
+
+      <div class="recent-contacts">
+        <p class="recent-contacts-header">Recent Contacts</p>
+        <ul>
+          @for(item of recentContacts(); track item){
+            <!-- HTML !-->
+
+            <button class="button-86" role="button" (click)="setContact(item)">
+              <span class="contact-icon">👤</span>
+              {{item}}
+            </button>
+          }
+        </ul>
+       
+    </div>
+    </div>
+  </div>
+  

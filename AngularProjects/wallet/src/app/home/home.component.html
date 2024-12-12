@@ -1,0 +1,10 @@
+<div class="text">
+    <div>
+        <app-sidebar/>
+        <app-home-nav class="home-nav" [walletBalance]="WalletBalance()"/>
+        <div class="wallet-pay">
+            <app-send-money [recentContacts]="recentContacts"/>
+            <app-show-wallet class="wallet-balance" [usernameInput]="username" [walletBalanceInput]="WalletBalance()"/>
+        </div>
+    </div>
+</div>
