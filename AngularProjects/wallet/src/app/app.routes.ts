@@ -4,8 +4,8 @@ import { SignupComponent } from './signup/signup.component';
 import { OtpComponent } from './otp/otp.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { HomeComponent } from './home/home.component';
-import { ShowWalletComponent } from './show-wallet/show-wallet.component';
 import { TransactionsComponent } from './transactions/transactions.component';
+import { UserComponent } from './user/user.component';
 
 export const routes: Routes = [
   {
@@ -37,5 +37,8 @@ export const routes: Routes = [
     path: 'home',
     component: HomeComponent,
   },
-  
+  {
+    path: 'user',
+    component: UserComponent
+  }  
 ];

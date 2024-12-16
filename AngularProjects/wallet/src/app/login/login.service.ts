@@ -6,7 +6,7 @@ import { Injectable, NgZone, signal } from '@angular/core';
 })
 export class LoginService {
   private loginSuccessful = false;
-  private username! :string;
+  username! :string;
   constructor(private httpClient: HttpClient) {}
   login(formData: FormData) {
     console.log('here 2')

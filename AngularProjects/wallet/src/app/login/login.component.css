@@ -1,116 +1,97 @@
-
-
 @import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
-	margin: 0;
-	padding: 0;
-	font-family: 'Raleway', sans-serif;
+  font-family: "Poppins", sans-serif;
+  background-color: #181837;
+  color: #f1f1f1;
 }
+
 .box {
-    
-	display: flex;
-	background-color: rgb(180, 92, 92);
-	justify-content: center;
-	background-color: #181837;
-	/* background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%); */
-  	height: 100vh;
-    font-family: "Roboto Slab";
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  background-color: #181837;
 }
+
 .login-form {
-    font-family: "Roboto Slab";
-  	min-width: 500px;
-  	max-width: 400px;
-	border-radius: 24px;
-	padding: 15px;
-	background-color: #222245;
-	color: aqua;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: #222245;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
+
 .login-form h1 {
-	text-align: center;
-	font-size: 2.5rem;
-	margin-top: 35px;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #21d4fd;
+  margin-bottom: 30px;
 }
-.login-form input[type = "text"] {
-	margin-top: 40px;
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  font-size: 1rem;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: black;
+  transition: border 0.3s;
 }
-.login-form input[type = "password"] {
-	margin-top: 20px;
-}
-input {
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+  border-color: #181837;
   outline: none;
- }
+}
+
+.login-form input[type="button"] {
+  width: 100%;
+  padding: 15px;
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(145deg, #21d4fd, #b721ff);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.3s, transform 0.2s;
+}
+
+.login-form input[type="button"]:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(33, 212, 253, 0.3);
+}
+
 .links {
-	margin-top: 10px;
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
 }
-.links > a:first-of-type {
-    background-color: #ffffff;
-	margin-right: 5px;
-    margin-top: 20px;
-    padding: 20px;
+
+.links a {
+  color: #21d4fd;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.3s;
 }
-.links > a:last-of-type {
-	margin-right: 5px;
-    margin-top: 20px;
-    padding: 20px;
+
+.links a:hover {
+  color: #b721ff;
 }
-.links > a {	
-	background-color: #E0E0E0;
-	border-radius: 24px;
-	font-weight: 400;
-	color: black;
-	line-height: 12px;
-	flex: 1;
-	text-align: center;
-	padding: 10px;
-	text-decoration: none;
-  font-family: 'Raleway';
-	transition: 0.25s;
-}
-.links > a:hover {	
-	opacity: 0.6;
-}
-.login-form input[type = "button"] {
-	
-	 background-color:  #181837;
-	/* background-color:  #E0E0E0; */
-	background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%); 
-	width: 100%;
-	color: white;
-  	border: none;
-	margin-top: 35px;
-  	cursor: pointer;
-	padding: 10px;
-  	font-family: 'Raleway', sans-seriff;
-  	font-size: 1.3rem;
-	font-weight: bold;
-	border-radius: 24px;
-	transition: 0.25s;
-}
-.login-form input[type = "button"]:hover {
-	opacity: 0.8;
-	box-shadow: 0 4px 8px rgba(81, 202, 235, 0.3);
-}
-.login-form input[type = "text"]:focus, .login-form input[type = "password"]:focus {
- 	border: 2px #21D4FD solid;
- }
-.login-form input[type = "text"], .login-form input[type = "password"] {
-	width: 100%;
-	border: none;
-	border-radius: 24px;
-  	font-size: 1rem;
-  	font-family: 'Raleway', sans-seriff;
-	background-color: gainsboro;
-	padding: 15px;
-} 

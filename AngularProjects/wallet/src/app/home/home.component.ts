@@ -10,7 +10,7 @@ import { SendMoneyComponent } from '../send-money/send-money.component';
 import { ShowWalletComponent } from '../show-wallet/show-wallet.component';
 import { WalletService } from '../wallet/wallet.service';
 import { LoginService } from '../login/login.service';
-import { Router } from '@angular/router';
+import { Router, UrlSegment } from '@angular/router';
 import { ContactsService } from '../contacts.service';
 
 @Component({
@@ -29,18 +29,20 @@ export class HomeComponent implements OnInit {
   constructor(
     private contactsService: ContactsService,
     private loginService: LoginService,
-    private walletService: WalletService
+    private walletService: WalletService,
+    private router:Router
   ) {}
 
   recentContacts! : string[]
   username = ''
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
+    this.getUsername()
     this.getRecentContacts()
-    this.getWalletBalance()
+    this.getwalletBalance()
   }
   getUsername(){
-    this.username = this.loginService.getUsername()
+      this.username = this.loginService.getUsername()  
   }
   getRecentContacts() {
       this.contactsService.getRecentContactsData().subscribe(
@@ -55,11 +57,21 @@ export class HomeComponent implements OnInit {
       }
     )
   }
-  getWalletBalance(){
-    this.walletService.getWalletBalance().subscribe()
+
+  getWalletBalanceValue(){
+    return this.walletService.walletBalance
   }
 
-  get WalletBalance(){
-    return this.walletService.readWalletBalance()
+  getwalletBalance(){
+      this.walletService.getWalletBalance().subscribe(
+      {
+        next: (resData:any) =>{
+          this.walletService.walletBalance.set(resData)
+        },
+        error:(err) => {
+          console.log(err)
+        }
+      }
+    )
   }
 }

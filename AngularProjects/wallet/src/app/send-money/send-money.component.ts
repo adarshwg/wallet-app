@@ -37,7 +37,6 @@ export class SendMoneyComponent {
     this.paymentForm.patchValue({ receiverUsername: contact });
   }
   onSubmit() {
-    console.log('the contacts i got are : ', this.recentContacts());
     this.walletService
       .sendMoney(
         this.paymentForm.value.receiverUsername!,
@@ -52,18 +51,6 @@ export class SendMoneyComponent {
           console.log(err);
         },
       });
-    this.walletService
-      .getWalletBalance()
-      .subscribe(
-        {
-          next: (resData:any) => {  
-            // this.walletService.walletBalance.set(resData)
-            console.log(resData)
-          },
-          error: (err) => {
-            console.log(err)
-          }
-        }
-      );
+    
   }
 }

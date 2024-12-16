@@ -1,0 +1,8 @@
+:host {
+    display: block;
+    margin-top: -25px;
+    margin-bottom: -10px;
+    background-size: cover;
+    background-color: #222245;
+    color: #f9f9f9; /* Default font color for the page */
+  }
