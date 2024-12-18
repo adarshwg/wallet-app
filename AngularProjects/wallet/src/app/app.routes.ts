@@ -6,6 +6,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { HomeComponent } from './home/home.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { UserComponent } from './user/user.component';
+import { PaymentCardComponent } from './payment-card/payment-card.component';
 
 export const routes: Routes = [
   {
@@ -35,7 +36,16 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent,
+    children:[
+      {
+        path: '',
+        component:HomeComponent,
+      },
+      {
+        path: 'pay-contact/:contactName',
+        component: PaymentCardComponent
+      }
+    ]
   },
   {
     path: 'user',

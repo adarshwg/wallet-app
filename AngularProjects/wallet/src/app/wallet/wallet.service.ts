@@ -1,12 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { tap } from 'rxjs';
+import { WalletBalanceModel } from '../modals/modals';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WalletService {
-  walletBalance = signal<string>('0');
+  walletBalance = signal<WalletBalanceModel>({
+    walletBalance:''
+  });
   constructor(private http: HttpClient){}
   getWalletBalance() {
     const token = localStorage.getItem('access_token');

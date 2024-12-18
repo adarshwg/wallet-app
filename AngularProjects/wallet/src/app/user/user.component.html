@@ -1,4 +1,30 @@
-<app-sidebar/>
-<app-home-nav [walletBalance]="getWalletBalanceValue()()"/>
+<app-sidebar></app-sidebar>
+<app-home-nav [walletBalance]="getWalletBalanceValue()()"></app-home-nav>
 
+<div class="profile-container">
+  <!-- Avatar -->
+  <div class="avatar">
+    <img src="user.avif" alt="User Avatar" />
+  </div>
 
+  <!-- Username -->
+  <div class="username">
+    <h2>{{ username }}</h2>
+  </div>
+
+  <div class="email">
+    <h2>{{ email }}</h2>
+  </div>
+
+  <!-- Buttons -->
+  <div class="actions">
+    <div class="btn">
+      <i class="bx bx-pencil icon"></i>
+      <a class="btn-link" (click)="onChangePassword()">Change Password</a>
+    </div>
+    <div class="btn">
+      <i class="bx bx-pencil icon"></i>
+      <a class="btn-link" (click)="onChangeMudraPin()">Change Mudra Pin</a>
+    </div>
+  </div>
+</div>

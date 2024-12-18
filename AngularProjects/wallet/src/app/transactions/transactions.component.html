@@ -1,39 +1,45 @@
 <app-sidebar />
 <app-home-nav [walletBalance]="getWalletBalanceValue()()"/>
+
+@if(isViewingTransaction){
+  <app-transaction-details [transactionDetails]="currentTransactionDetails" (cancel)="onStopViewingTransaction()"/>
+}
 <div class="transaction-list">
   <div class="filter">
     <label for="month" >Choose Month and Year:</label>
     <input type="month" id="month" [(ngModel)]="date"/>
   </div>
   <div class="transactions">
-    <div class="transaction" *ngFor="let transaction of transactions | paginate: {itemsPerPage:5, currentPage:p} ">
-      <div class="avatar">
-        <img src="cartoon.avif" alt="Avatar" />
-      </div>
-      <div class="details">
-        @if(username===transaction.receiver){
-          <p class="username">{{ transaction.sender }}</p>
+    <div  (click)="onStartViewingTransaction(transaction)" class="transaction" *ngFor="let transaction of transactions | paginate: {itemsPerPage:5, currentPage:p}">
+      <div>
+        <div class="avatar">
+          <img src="cartoon.avif" alt="Avatar" />
+        </div>
+        <div class="details">
+          @if(username===transaction.receiver){
+            <p class="username">{{ transaction.sender }}</p>
+            <p class="date">
+              {{ transaction.day }}/{{ transaction.month }}/{{ transaction.year }}
+            </p>
+            <div class="amount">
+              <p>+ ₹{{ transaction.amount }}</p>
+            </div>
+          } @else {
+          <p class="username">
+            {{ transaction.receiver }}
+          </p>
           <p class="date">
             {{ transaction.day }}/{{ transaction.month }}/{{ transaction.year }}
           </p>
+          <p class="category">
+            {{transaction.category}}
+          </p>
           <div class="amount">
-            <p>+{{ transaction.amount }}</p>
+            <p>-  ₹{{ transaction.amount }}</p>
           </div>
-        } @else {
-        <p class="username">
-          {{ transaction.receiver }}
-        </p>
-        <p class="date">
-          {{ transaction.day }}/{{ transaction.month }}/{{ transaction.year }}
-        </p>
-        <p class="category">
-          {{transaction.category}}
-        </p>
-        <div class="amount">
-          <p>{{ transaction.amount }}</p>
+          }
+          
         </div>
-        }
-        
       </div>
       
     </div>

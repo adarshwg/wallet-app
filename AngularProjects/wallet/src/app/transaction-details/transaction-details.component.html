@@ -1,0 +1,51 @@
+<div class="backdrop" (click)="onCancel()">
+  <div class="payment-card">
+    <div class="user-icon">
+      <img src="cartoon.avif" alt="User Icon" />
+    </div>
+
+    <!-- if the user is a receiver -->
+    @if(transactionDetails().receiver===username){
+    <div class="payment-details">
+      <p class="to-text">
+        From
+        <span class="recipient">
+          {{ transactionDetails().sender }}
+        </span>
+      </p>
+      <h1 class="amount">₹{{ transactionDetails().amount }}</h1>
+      <button
+        class="pay-again-btn"
+        (click)="onPay(transactionDetails().sender)"
+      >
+        Pay
+      </button>
+      <div class="status">
+        <span class="status-checkmark">✔</span>
+        <span>Completed</span>
+      </div>
+      <p class="timestamp">{{ getTransactionTime(transactionDetails()) }}</p>
+    </div>
+    } @else {
+    <!-- if the user is a sender -->
+    <div class="payment-details">
+      <p class="to-text">
+        To
+        <span class="recipient">{{ transactionDetails().receiver }} </span>
+      </p>
+      <h1 class="amount">₹{{ transactionDetails().amount }}</h1>
+      <button
+        class="pay-again-btn"
+        (click)="onPay(transactionDetails().receiver)"
+      >
+        Pay Again
+      </button>
+      <div class="status">
+        <span class="status-checkmark">✔</span>
+        <span>Completed</span>
+      </div>
+      <p class="timestamp">{{ getTransactionTime(transactionDetails()) }}</p>
+    </div>
+    }
+  </div>
+</div>

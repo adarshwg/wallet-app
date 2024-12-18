@@ -1,4 +1,6 @@
 import { Component, input } from '@angular/core';
+import { Router } from '@angular/router';
+import { WalletBalanceModel } from '../modals/modals';
 
 @Component({
   selector: 'app-home-nav',
@@ -8,5 +10,12 @@ import { Component, input } from '@angular/core';
   styleUrl: './home-nav.component.css'
 })
 export class HomeNavComponent {
-  walletBalance = input.required<string>()
+  constructor(private router:Router){}
+  walletBalance = input.required<WalletBalanceModel>()
+  onWalletClick(){
+    this.router.navigate(['home'])
+  }
+  onUserClick(){
+    this.router.navigate(['user'])
+  }
 }

@@ -1,0 +1,182 @@
+  :host {
+    display: block;
+    margin-top: -25px;
+    margin-bottom: -10px;
+    background-size: cover;
+    background-color: #222245; /* Default background for the component */
+    color: #f9f9f9; /* Default font color */
+    font-family: "Poppins", sans-serif; /* Consistent font family */
+  }
+
+  /* Payment Card Container */
+  .payment-card-container {
+    font-family: "Poppins", sans-serif;
+    color: aqua; /* Matches wallet text color */
+    background-color: #181837; /* Matches wallet background */
+    border-radius: 10px;
+    padding: 100px; /* Matches wallet padding */
+    width: 35%; /* Matches wallet width */
+    max-height: 70%;
+    margin: 10px auto; /* Centers the card horizontally */
+    cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
+  }
+
+  .payment-card-container:hover {
+    box-shadow: 0px 4px 12px 6px rgba(81, 202, 235, 0.5);
+  }
+  .contact-payments {
+    max-width: 2000px;
+    max-height: 1000px; /* Set a fixed height or max-height */
+    overflow-y: scroll; /* Enables vertical scrolling */
+    overflow-x: hidden; /* Hides horizontal overflow, if any */
+    padding: 10px; /* Optional: Adds spacing inside the container */
+    background-color: #181837; /* Matches wallet background */
+    border-radius: 10px; /* Matches the overall design */
+}
+
+  /* Payment Header Styling */
+  .payment-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 5rem;
+
+  }
+
+  .user-icon {
+    height: 10rem;
+    border-radius: 100%;
+    margin-left: 12rem;
+    margin-bottom: 1rem;
+  }
+
+  .user-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: aqua; /* Stands out from background */
+  }
+
+  /* Payment Box Styling */
+  .payment-box {
+    font-family: "Poppins", sans-serif;
+    background-color: #222245; /* Matches wallet component background */
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin: 18px 0;
+    box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .incoming {
+    margin-right: 150px;
+    border-right: 4px solid #57d89f; /* Green for incoming payments */
+    border-bottom: 2px solid #57d89f;
+  }
+
+  .outgoing {
+    margin-left: 150px;
+    border-left: 4px solid #57b8f5; /* Blue for outgoing payments */
+    border-bottom: 2px solid #57b8f5;
+  }
+
+  .payment-title {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .payment-amount {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 4px 0;
+    color: #f9f9f9;
+  }
+
+  .payment-status {
+    font-size: 0.875rem;
+    color: #57d89f; /* Status indicator color */
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .status-icon {
+    font-size: 1rem;
+  }
+
+  /* Payment Date Styling */
+  .payment-date {
+    text-align: center;
+    color: #6c757d;
+    margin: 8px 0;
+    font-size: 12px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+  }
+
+  /* Input Section */
+  .input-section {
+    display: flex;
+    align-items: center;
+    background: #f9f9f9; /* Matches wallet background */
+    border-radius: 24px;
+    padding: 8px 12px;
+    margin-top:4rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .input-amount {
+    font-family: "Poppins", sans-serif;
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    background: transparent;
+    font-size: 1rem;
+    color: #181837; /* Matches wallet font color */
+  }
+
+  .input-amount::placeholder {
+    color: #aaa;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .send-button {
+    border: none;
+    background-color: #57b8f5;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.125rem;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  }
+
+  .send-button:hover {
+    background-color: #459bd3;
+    transform: scale(1.1);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .payment-card-container {
+        width: 90%;
+        padding: 50px;
+    }
+
+    .user-icon {
+        font-size: 2rem;
+    }
+
+    .user-name {
+        font-size: 1.25rem;
+    }
+
+    .payment-amount {
+        font-size: 1.25rem;
+    }
+
+    .send-button {
+        font-size: 1rem;
+        padding: 4px 8px;
+    }
+  }

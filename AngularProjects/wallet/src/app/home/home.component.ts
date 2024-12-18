@@ -12,6 +12,7 @@ import { WalletService } from '../wallet/wallet.service';
 import { LoginService } from '../login/login.service';
 import { Router, UrlSegment } from '@angular/router';
 import { ContactsService } from '../contacts.service';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +31,8 @@ export class HomeComponent implements OnInit {
     private contactsService: ContactsService,
     private loginService: LoginService,
     private walletService: WalletService,
-    private router:Router
+    private router:Router,
+    private userService: UserService
   ) {}
 
   recentContacts! : string[]
@@ -42,7 +44,14 @@ export class HomeComponent implements OnInit {
     this.getwalletBalance()
   }
   getUsername(){
-      this.username = this.loginService.getUsername()  
+      this.userService.getUserDetails().subscribe(
+        {
+          next: (resData:any) => {
+            console.log(resData)
+            this.username = resData.username
+          }
+        }
+      )  
   }
   getRecentContacts() {
       this.contactsService.getRecentContactsData().subscribe(

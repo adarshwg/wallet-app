@@ -9,7 +9,6 @@ export class LoginService {
   username! :string;
   constructor(private httpClient: HttpClient) {}
   login(formData: FormData) {
-    console.log('here 2')
     return this.httpClient.post('http://localhost:8000/auth/login', formData)
   }
   getLoginSuccessful(){

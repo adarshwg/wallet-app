@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { WalletService } from '../wallet/wallet.service';
 import { ContactsService } from '../contacts.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-send-money',
@@ -16,7 +17,7 @@ import { ContactsService } from '../contacts.service';
   styleUrl: './send-money.component.css',
 })
 export class SendMoneyComponent {
-  constructor(private walletService: WalletService) {}
+  constructor(private walletService: WalletService,private router:Router) {}
   recentContacts = input.required<string[]>();
   paymentForm = new FormGroup({
     receiverUsername: new FormControl('', {
@@ -34,7 +35,8 @@ export class SendMoneyComponent {
     this.walletService.getWalletBalance();
   }
   setContact(contact: string) {
-    this.paymentForm.patchValue({ receiverUsername: contact });
+    console.log(contact)
+    this.router.navigate(['home','pay-contact',contact])
   }
   onSubmit() {
     this.walletService

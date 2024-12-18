@@ -1,0 +1,45 @@
+<app-home-nav [walletBalance]="getWalletBalanceValue()()" />
+<app-sidebar />
+
+<div class="payment-card-container">
+  <img class="user-icon" src="cartoon.avif"/> 
+  <div class="payment-header">    
+    <span class="user-name">{{ contactName }}</span>
+  </div>
+  <div></div>
+  <div class="contact-payments">
+    @for (transaction of contactTransactions; track $index) 
+  {
+    @if(transaction.receiver===username){
+      <div class="payment-date">{{transaction.month + '-' + transaction.day + '-' + transaction.year | date:'fullDate'}}</div>
+    <div class="payment-box incoming">
+      <p class="payment-title">Payment to you</p>
+      <p class="payment-amount">₹{{ transaction.amount }}</p>
+      <p class="payment-status">
+        <span class="status-icon">✔️</span>
+        <span class="status-text">Successful</span>
+      </p>
+    </div>
+    } 
+    @else {
+    <!-- Outgoing Payment -->
+    <div class="payment-date">{{transaction.month + '-' + transaction.day + '-' + transaction.year | date:'fullDate'}}</div>
+    <div class="payment-box outgoing">
+      <p class="payment-title">Payment to {{transaction.receiver}}</p>
+      <p class="payment-amount">₹{{ transaction.amount }}</p>
+      <p class="payment-status">
+        <span class="status-icon">✔️</span>
+        <span class="status-text">Successful</span>
+      </p>
+    </div>
+    }
+  }
+  </div>
+  
+
+  <!-- Input Area -->
+  <div class="input-section">
+    <input type="text" placeholder="Enter the amount" class="input-amount" />
+    <button class="send-button">➤</button>
+  </div>
+</div>

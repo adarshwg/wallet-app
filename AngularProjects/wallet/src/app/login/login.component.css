@@ -1,6 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+/* Import Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
+/* Reset */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,28 +9,24 @@
   font-family: "Poppins", sans-serif;
 }
 
-body {
-  font-family: "Poppins", sans-serif;
-  background-color: #181837;
-  color: #f1f1f1;
-}
-
+/* Main Container */
 .box {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  padding: 20px;
   background-color: #181837;
+  padding: 20px;
 }
 
+/* Form Styling */
 .login-form {
   background-color: #222245;
   border-radius: 12px;
   padding: 30px;
   max-width: 400px;
   width: 100%;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   text-align: center;
 }
 
@@ -40,28 +37,53 @@ body {
   margin-bottom: 30px;
 }
 
-.login-form input[type="text"],
-.login-form input[type="password"] {
+/* Input Container */
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-container input {
   width: 100%;
-  padding: 15px;
-  margin: 10px 0;
+  padding: 12px 12px 12px 40px; /* Left padding for icons */
   font-size: 1rem;
-  border: 1px solid #444;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  color: black;
-  transition: border 0.3s;
+  background-color: #f9f9f9;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
 
-.login-form input[type="text"]:focus,
-.login-form input[type="password"]:focus {
-  border-color: #181837;
+.input-container input:focus {
   outline: none;
+  border-color: #21d4fd;
+  box-shadow: 0 0 8px rgba(33, 212, 253, 0.3);
 }
 
-.login-form input[type="button"] {
+.input-container input::placeholder {
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.input-container input:focus + .input-icon {
+  color: #21d4fd;
+}
+
+/* Button Styling */
+.login-btn {
   width: 100%;
   padding: 15px;
-  margin-top: 20px;
   font-size: 1.2rem;
   font-weight: bold;
   color: #fff;
@@ -69,15 +91,16 @@ body {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: opacity 0.3s, transform 0.2s;
+  transition: all 0.3s ease;
+  margin-top: 10px;
 }
 
-.login-form input[type="button"]:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
+.login-btn:hover {
+  transform: translateY(-3px);
   box-shadow: 0 8px 15px rgba(33, 212, 253, 0.3);
 }
 
+/* Links Section */
 .links {
   margin-top: 20px;
   display: flex;

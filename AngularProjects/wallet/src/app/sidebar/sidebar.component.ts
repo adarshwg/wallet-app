@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,5 +9,9 @@ import { RouterLink } from '@angular/router';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-
+  constructor(private router:Router){}
+  onLogout(){
+    localStorage.removeItem('access_token')
+    this.router.navigate([''])
+  }
 }

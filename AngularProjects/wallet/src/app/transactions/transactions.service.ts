@@ -14,6 +14,12 @@ export class TransactionsService {
     const token = localStorage.getItem('access_token');
     return this.http.get('http://localhost:8000/transactions/month', {
       headers: new HttpHeaders().set('Authorization','Bearer '+token)
+    })    
+  }
+  getTransactionsForContact(contactName:string){
+    const token = localStorage.getItem('access_token');
+    return this.http.get('http://localhost:8000/transactions/contact/'+contactName,{
+      headers: new HttpHeaders().set('Authorization','Bearer '+token)
     })
   }
   
