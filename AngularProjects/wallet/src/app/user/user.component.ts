@@ -2,19 +2,19 @@ import { Component } from '@angular/core';
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { HomeNavComponent } from "../home-nav/home-nav.component";
 import { WalletService } from '../wallet/wallet.service';
-import { LoginService } from '../login/login.service';
 import { UserService } from './user.service';
+import { ChangePasswordComponent } from "../change-password/change-password.component";
+import { ChangePinComponent } from "../change-pin/change-pin.component";
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [SidebarComponent, HomeNavComponent],
+  imports: [SidebarComponent, HomeNavComponent, ChangePasswordComponent, ChangePinComponent],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
 export class UserComponent {
   constructor(
-      private loginService: LoginService,
       private walletService: WalletService,
       private userService: UserService
     ) {}
@@ -22,6 +22,8 @@ export class UserComponent {
       this.getwalletBalance()
       this.getUserDetails()
     }
+    isChangingPassword = false;
+    isChangingPin = false;
     
     getUserDetails(){
       this.userService.getUserDetails().subscribe(
@@ -34,22 +36,18 @@ export class UserComponent {
         }
       )
     }
-
     get username(){
       return this.userService.username;
     }
-
     get email(){
       return this.userService.email;
     }
-
     onDetailsClick(){
       console.log('Details clicked')
     }
     getWalletBalanceValue(){
       return this.walletService.walletBalance
-    }
-  
+    }  
     getwalletBalance(){
         this.walletService.getWalletBalance().subscribe(
         {
@@ -62,13 +60,42 @@ export class UserComponent {
         }
       )
     }
-    onChangePassword(){
-
+    onChangePasswordStart(){
+      this.isChangingPassword = true;
     }
-    onChangeMudraPin(){
-
+    onChangePassword(newPassword:string){
+      console.log('changing the user password')
+      this.userService.updatePassword(newPassword).subscribe(
+        {
+          next:(resData:any)=>{
+            console.log(resData)
+            this.isChangingPassword=false;
+          },
+          error:(err) => {
+            console.log(err)
+          }
+        }
+      )
     }
-     
-    
-   
+    onChangeMudraPinStart(){
+      this.isChangingPin = true;
+    }
+    onChangeMudraPin(newMudraPin:number){
+      console.log('changing the mudra pin')
+      this.userService.updateMudraPin(newMudraPin).subscribe(
+        {
+          next:(resData:any) => {
+            console.log(resData)
+            this.isChangingPin=false;
+          },
+          error:(err)=> {
+            console.log(err)
+          }
+        }
+      )
+    }
+    onCancel(){
+      this.isChangingPassword= false;
+      this.isChangingPin=false;
+    }
 }

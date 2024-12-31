@@ -5,20 +5,23 @@ import { Router, RouterLink } from '@angular/router';
 import { SignupService } from './signup.service';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { LoginService } from '../login/login.service';
-import { WalletService } from '../wallet/wallet.service';
+import { OtpComponent } from '../otp/otp.component';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, NavbarComponent],
+  imports: [ReactiveFormsModule, RouterLink, NavbarComponent,OtpComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
-export class SignupComponent implements OnInit{
-  constructor(private loginService:LoginService, private router:Router){}
+export class SignupComponent{
+  constructor(private signupService:SignupService){}
   signupForm =  new FormGroup({
     username :new FormControl('',{
       validators : [Validators.required]
+    }),
+    email: new FormControl('',{
+      validators: [Validators.required]
     }),
     password: new FormControl('',{
       validators:[Validators.required]
@@ -27,29 +30,24 @@ export class SignupComponent implements OnInit{
       validators:[Validators.required]
     })
   })
-  signupService = inject(SignupService)
-  ngOnInit(): void {
-    
-  }
+  otpVerification = false;
+  formData= new FormData();
   onSubmit(){
     let formValues = this.signupForm.value
     const username = formValues.username;
+    const email = formValues.email;
     const password = formValues.password;
     const mudraPin = formValues.mudraPin;
-    const otp : number = 0;
-    let formData = new FormData()
-    formData.append("grant_type","password")
-    formData.append("username",username!)
-    formData.append("password",password!)
-    formData.append("client_secret",mudraPin!)
-    this.signupService.getSignupStatus(formData).subscribe(
-      (status)=> {
-        console.log(status)
-        if(status){
-          this.router.navigate(['signup','otp'])
-        }
-      }
-    )
-
+    this.formData.append("username",username!)
+    this.formData.append("client_id",email!)
+    this.formData.append("password",password!)
+    this.formData.append("client_secret",mudraPin!)
+    this.otpVerification = true;
+    this.signupService.setSignupData(this.formData)
+    this.signupService.setEmail(email!)
+    console.log(this.formData)
+    console.log(this.signupService.getEmail())
+    console.log(this.signupService.getSignupData())
   }
+  
 }

@@ -9,8 +9,8 @@
     <label for="month" >Choose Month and Year:</label>
     <input type="month" id="month" [(ngModel)]="date"/>
   </div>
-  <div class="transactions">
-    <div  (click)="onStartViewingTransaction(transaction)" class="transaction" *ngFor="let transaction of transactions | paginate: {itemsPerPage:5, currentPage:p}">
+  <div class="transactions">   
+    <div (click)="onStartViewingTransaction(transaction)" class="transaction" *ngFor="let transaction of transactions | paginate: {itemsPerPage:5, currentPage:p}">
       <div>
         <div class="avatar">
           <img src="cartoon.avif" alt="Avatar" />

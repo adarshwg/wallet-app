@@ -1,37 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
 import { TransactionsService } from '../transactions/transactions.service';
-import { TransactionModel } from '../modals/modals';
+import { PaymentDetailsModel, TransactionModel, UserDetailsModel } from '../modals/modals';
 import { HomeNavComponent } from "../home-nav/home-nav.component";
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { WalletService } from '../wallet/wallet.service';
 import { UserService } from '../user/user.service';
 import { DatePipe } from '@angular/common';
-import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ConfirmPaymentComponent } from "../confirm-payment/confirm-payment.component";
 
 @Component({
   selector: 'app-payment-card',
   standalone: true,
-  imports: [HomeNavComponent, SidebarComponent,DatePipe,InfiniteScrollDirective],
+  imports: [HomeNavComponent, SidebarComponent, DatePipe, ReactiveFormsModule, ConfirmPaymentComponent],
   templateUrl: './payment-card.component.html',
   styleUrl: './payment-card.component.css',
 })
-export class PaymentCardComponent implements OnInit {
+export class PaymentCardComponent implements OnInit,AfterViewChecked {
   constructor(
     private activatedRoute: ActivatedRoute,
     private transactionsService: TransactionsService,
     private walletService: WalletService,
-    private userService:UserService
+    private userService:UserService,
   ) {
     this.snapshot = activatedRoute.snapshot;
   }
   snapshot: ActivatedRouteSnapshot;
   contactName!: string;
   username!:string;
+  paymentConfirmation = false;
+  otpVerified = false;
+  @ViewChild('scrollMe') private transactionScrollContainer!:ElementRef;
+  scrollToBottom(): void {
+    try {
+        this.transactionScrollContainer.nativeElement.scrollTop = this.transactionScrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }                 
+}
   ngOnInit(): void {
     console.log(this.snapshot);
     this.contactName = this.snapshot.paramMap.get('contactName') || '';
@@ -39,21 +48,53 @@ export class PaymentCardComponent implements OnInit {
     this.getContactTransactions()
     this.getwalletBalance()
     this.getUsername()
+    this.scrollToBottom()
+  }
+  ngAfterViewChecked(): void {
+    this.scrollToBottom()
   }
   contactTransactions! : [TransactionModel]
-  items :string[] = []
-  isLoading = false;
-  currentPage=1
-  itemsPerPage=10;
-
-  toggleLoading = ()=> this.isLoading = !this.isLoading
-
-
-
+  enteredAmount!:number
+  paymentForm = new FormGroup({
+    amount: new FormControl(0,{
+      validators: [Validators.required]
+    })
+  })
+  onCancel(){
+    this.paymentConfirmation=false;
+  }
+  onPayClick(){
+    this.paymentConfirmation=true;
+    this.enteredAmount = this.paymentForm.value.amount!   
+  }
+  onSubmitMudraPin(mudraPin:number){
+    this.userService.verifyMudraPin(mudraPin).subscribe({
+      next:(resData:any) => {
+        this.otpVerified = resData;
+        console.log(resData)
+        this.walletService.sendMoney(this.contactName,this.enteredAmount,mudraPin).subscribe(
+          {
+            next:(resData)=>{
+              console.log(resData)
+              this.getContactTransactions()
+              this.paymentConfirmation=false;
+            },
+            error:(err)=> {
+              console.log(err)
+            }
+          }
+        )
+      },
+      error:(err) => {
+        console.log(err)
+      }
+    })
+  }
   getUsername(){
     this.userService.getUserDetails().subscribe(
       {
         next:(resData:any) => {
+          console.log(resData)
           this.username = resData.username
         }
       }

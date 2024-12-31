@@ -48,6 +48,9 @@ body {
 .signup-form input[type = "password"] {
 	margin-top: 20px;
 }
+.signup-form input[type = "email"] {
+	margin-top: 20px;
+}
 input {
   outline: none;
  }
@@ -102,10 +105,10 @@ input {
 .signup-form input[type = "button"]:hover {
 	opacity: 0.8;
 }
-.signup-form input[type = "text"]:focus, .signup-form input[type = "password"]:focus {
+.signup-form input[type = "text"]:focus, .signup-form input[type = "password"]:focus , .signup-form input[type = "email"] {
  	border: 2px #21D4FD solid;
  }
-.signup-form input[type = "text"], .signup-form input[type = "password"] {
+.signup-form input[type = "text"], .signup-form input[type = "password"], .signup-form input[type = "email"] {
 	width: 100%;
 	border: none;
 	border-radius: 24px;

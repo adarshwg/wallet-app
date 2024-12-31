@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { tap } from 'rxjs';
-import { WalletBalanceModel } from '../modals/modals';
+import { Observable, tap } from 'rxjs';
+import { PaymentDetailsModel, WalletBalanceModel } from '../modals/modals';
+import { HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -36,8 +37,9 @@ export class WalletService {
     }).pipe(tap({
       next:(resData:any)=>{
         console.log(resData)
+        console.log(typeof resData)
         console.log('inside wallet service!!')
-        this.walletBalance.set(resData["Remaining Balance "])
+        this.walletBalance.set(resData.remainingBalance)
         console.log('the new balance after sending is ',this.walletBalance())
       }
     }))

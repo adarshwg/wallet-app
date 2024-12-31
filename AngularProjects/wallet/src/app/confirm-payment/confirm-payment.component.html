@@ -1,0 +1,73 @@
+<div class="backdrop">
+    <div class="payment-card">
+      <form [formGroup]="mudraPinForm" (ngSubmit)="onSubmitMudraPin()">
+        <h2>Enter Mudra Pin</h2>
+        <div class="pin-input-group">
+          <input
+            type="text"
+            maxlength="1"
+            class="pin-input"
+            formControlName="pin1"
+            (input)="moveToNext($event, 'pin2')"
+            (keydown)="moveToPrevious($event, 'pin1')"
+            name="pin1"
+            required
+            autofocus
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="pin-input"
+            formControlName="pin2"
+            (input)="moveToNext($event, 'pin3')"
+            (keydown)="moveToPrevious($event, 'pin1')"
+            name="pin2"
+            required
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="pin-input"
+            formControlName="pin3"
+            (input)="moveToNext($event, 'pin4')"
+            (keydown)="moveToPrevious($event, 'pin2')"
+            name="pin3"
+            required
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="pin-input"
+            formControlName="pin4"
+            (input)="moveToNext($event, 'pin5')"
+            (keydown)="moveToPrevious($event, 'pin3')"
+            name="pin4"
+            required
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="pin-input"
+            formControlName="pin5"
+            (input)="moveToNext($event, 'pin6')"
+            (keydown)="moveToPrevious($event, 'pin4')"
+            name="pin5"
+            required
+          />
+          <input
+            type="text"
+            maxlength="1"
+            class="pin-input"
+            formControlName="pin6"
+            (submit)="onSubmitMudraPin()"
+            (keydown)="moveToPrevious($event, 'pin5')"
+            name="pin6"
+            required
+          />
+        </div>
+        <button type="submit">Submit</button>
+        <a class="cancel" (click)="onCancel()">Cancel</a>
+      </form>
+    </div>
+  </div>
+  
