@@ -9,35 +9,35 @@
     <div class="menu">
 
       <ul class="menu-links">
-        <li class="nav-link">
+        <!-- <li class="nav-link">
           <a href="#">
             <i class="bx bx-home-alt icon"></i>
             <span class="text nav-text">Dashboard</span>
           </a>
-        </li>
+        </li> -->
 
 
         <li class="nav-link">
-          <a [routerLink]="['/transactions']">
+          <a [routerLink]="['/home']" routerLinkActive="selected">
+            <i class="bx bx-wallet icon"></i>
+            <span class="text nav-text">Wallets</span>
+          </a>
+        </li>
+        <li class="nav-link">
+          <a [routerLink]="['/transactions']" routerLinkActive="selected" >
             <i class="bx bx-money-withdraw icon"></i>
             <span class="text nav-text">Transactions</span>
           </a>
         </li>
 
         <li class="nav-link">
-          <a [routerLink]="['/user']">
+          <a [routerLink]="['/user']" routerLinkActive="selected">
             <i class="bx bx-user icon"></i>
             <span class="text nav-text">Account</span>
           </a>
         </li>
 
 
-        <li class="nav-link">
-          <a [routerLink]="['/home']">
-            <i class="bx bx-wallet icon"></i>
-            <span class="text nav-text">Wallets</span>
-          </a>
-        </li>
       </ul>
     </div>
 

@@ -33,6 +33,7 @@
     padding: 10px; /* Optional: Adds spacing inside the container */
     background-color: #181837; /* Matches wallet background */
     border-radius: 10px; /* Matches the overall design */
+    scrollbar-width: none;
 }
 
   /* Payment Header Styling */
