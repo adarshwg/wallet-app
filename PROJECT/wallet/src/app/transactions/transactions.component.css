@@ -1,0 +1,106 @@
+:host {
+  display: block;
+  margin-top: -25px;
+  margin-bottom: -10px;
+  background-size: cover;
+  background-color: #222245;
+  color: #f9f9f9; /* Default font color for the page */
+}
+
+.transaction-list {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: "Poppins", sans-serif;
+  color: aqua; 
+}
+
+.filter {
+  margin-left: 200px;
+  margin-bottom: 40px;
+  text-align: center;
+  color: inherit; /* Match the font color with the rest of the page */
+  font-family: "Poppins", sans-serif;
+}
+
+.filter label {
+  font-size: 16px;
+  margin-right: 10px;
+  color: inherit; /* Inherit font color from parent */
+  font-family: "Poppins", sans-serif;
+}
+
+.filter input {
+  padding: 5px;
+  font-size: 16px;
+  color: #222245; /* Optional: Set a contrasting color for input text */
+  background-color: aqua; /* Optional: Light background for inputs */
+  border: 1px solid aqua;
+  border-radius: 4px;
+  font-family: "Poppins", sans-serif;
+}
+
+.transactions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.transaction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid aqua;
+  border-radius: 8px;
+  background-color: aqua;
+  position: relative;
+  color: #222245; /* Font color for the transaction content */
+  cursor: pointer;
+}
+
+.avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.details {
+  flex: 1;
+  margin-left: 15px;
+}
+
+.details .username {
+  font-weight: bold;
+  font-size: 16px;
+  color: #222245; /* Ensure font color is consistent */
+}
+
+.details .date {
+  font-size: 14px;
+  color: #888;
+}
+
+.amount {
+  font-size: 16px;
+  font-weight: bold;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #222245; /* Ensure amount font matches the rest */
+}
+
+.float-right::ng-deep {
+  padding-left: 50px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.float-right::ng-deep .ngx-pagination .current {
+    color: #222245 !important;
+}
+
+.float-right::ng-deep .ngx-pagination > li > a{
+  background-color: #222245  ;
+  color: aqua;
+}
+

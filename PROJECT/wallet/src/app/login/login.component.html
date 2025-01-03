@@ -1,0 +1,48 @@
+<app-navbar></app-navbar>
+
+<div class="box">
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h1>Welcome 👋</h1>
+
+    <!-- Username Input -->
+    <div class="input-container"> 
+      <input
+        type="text"
+        formControlName="username"
+        placeholder="Enter Username"
+        required
+      />
+    </div>
+
+    <!-- Password Input -->
+    <div class="input-container">
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="Enter Password"
+        required
+      />
+    </div>
+
+    <!-- Mudra PIN Input -->
+    <div class="input-container">
+      <input
+        type="password"
+        formControlName="mudraPin"
+        placeholder="Enter 6-digit Mudra PIN"
+        required
+      />
+    </div>
+
+    <!-- Login Button -->
+    <button type="submit" class="login-btn">Login 🚀</button>
+
+    <!-- Links -->
+    <div class="links">
+      <a [routerLink]="'/login/otp'">Forgot Password?</a>
+      <a [routerLink]="'/signup'">New user? Sign Up</a>
+    </div>
+  </form>
+</div>
+
+<router-outlet></router-outlet>

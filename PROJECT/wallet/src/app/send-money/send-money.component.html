@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="send-money">
+    <p class="recent-contacts-header">Pay User</p>
+    <form class="pay-username" [formGroup]="paymentForm" >
+      <input placeholder="Enter the username" name="receiverUsername" formControlName="receiverUsername" > 
+      <button class="button-86" id="pay-username-btn" role="button" (click)="onPayUserSubmit()">Make Payment 🚀</button>
+    </form>        
+    <div class="recent-contacts">
+      <p class="recent-contacts-header">Recent Contacts</p>
+      <ul>
+        @if(!recentContacts()){
+        <p>No recent contacts to show!</p>
+        } @else { @for(item of recentContacts(); track item){
+        <button class="button-86" role="button" (click)="payContact(item)">
+          <span class="contact-icon">👤</span>
+          {{ item }}
+        </button>
+        } }
+      </ul>
+    </div>
+  </div>
+</div>

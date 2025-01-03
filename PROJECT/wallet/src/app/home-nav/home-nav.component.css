@@ -1,0 +1,60 @@
+
+.wallet-container {
+    padding-top: 2.5rem;
+    padding-left: 70rem;
+    padding-bottom: 10px;
+    display: flex;
+    border-radius: 10px;
+    color: rgb(75, 206, 239); /* Light purple text color */
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+}
+.wallet-balance:hover {
+    cursor: pointer; /* Slightly lighter on hover */
+    box-shadow: 0 4px 8px rgba(81, 202, 235, 0.3); /* Adjust the values as needed */
+}
+.wallet-container i {
+    padding-left: -5px;
+    padding-right: 7px;
+}
+  
+  .wallet-balance {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #181837; /* Slightly lighter purple background */
+    border-radius: 10px;
+  }
+ 
+  
+  .balance-amount {
+    padding-left: 5px;
+  }
+  
+  .action-icons {
+    display: flex;
+    gap: 0px; /* Space between icons */
+  }
+  
+  .icon-box {
+    background-color: #181837;
+    padding-left: 5px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px; /* Same as wallet balance background */
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .icon-box:hover {
+    box-shadow: 0 4px 8px rgba(81, 202, 235, 0.3); /* Slightly lighter on hover */
+  }
+  
+  .icon-box i {
+    font-size: 18px;
+    color: #a6a1e1; /* Icon color */
+  }

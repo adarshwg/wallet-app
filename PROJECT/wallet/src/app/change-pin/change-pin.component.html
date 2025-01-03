@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="change-pin">
+      <p class="change-pin-header">CHANGE MUDRA PIN</p>
+      <form class="pin-form" [formGroup]="changePinForm">
+        <div class="input-group">
+          <label for="current-pin">Enter Current PIN</label>
+          <input type="password" id="current-pin" placeholder="••••••" formControlName="currentPin">
+        </div>
+        <div class="input-group">
+          <label for="new-pin">Enter New PIN</label>
+          <input type="password" id="new-pin" placeholder="••••••" formControlName="newPin">
+        </div>
+        <div class="input-group">
+          <label for="confirm-pin">Confirm New PIN</label>
+          <input type="password" id="confirm-pin" placeholder="••••••" formControlName="confirmNewPin">
+        </div>
+        <button type="submit" class="submit-btn" (click)="onSubmit()">Update Pin</button>
+        <a class="cancel" (click)="onCancel()">Cancel</a>
+      </form>
+    </div>
+  </div>
+  
