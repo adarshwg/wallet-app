@@ -1,119 +1,120 @@
+/* Import Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
-
-@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+/* Reset */
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
 }
-body {
-	margin: 0;
-	padding: 0;
-	font-family: 'Raleway', sans-serif;
-}
+
+/* Main Container */
 .box {
-    
-	display: flex;
-	background-color: white;
-	justify-content: center;
-	background-color: #181837;
-	/* background-color: #21D4FD;
-	background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%); */
-  	height: 100vh;
-    font-family: "Roboto Slab";
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    /* border-radius: 20px;
-    margin-bottom: 100px;
-    margin-left: 40px;
-    margin-right: 40px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #181837;
+  padding: 20px;
 }
+
+/* Form Styling */
 .signup-form {
-    font-family: "Roboto Slab";
-  	min-width: 500px;
-  	max-width: 400px;
-	border-radius: 24px;
-	padding: 15px;
-	background-color: white;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: #222245;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
+
 .signup-form h1 {
-	text-align: center;
-	font-size: 2.5rem;
-	margin-top: 35px;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #21d4fd;
+  margin-bottom: 30px;
 }
-.signup-form input[type = "text"] {
-	margin-top: 40px;
+
+/* Input Container */
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
 }
-.signup-form input[type = "password"] {
-	margin-top: 20px;
+
+.input-container input {
+  width: 100%;
+  padding: 12px 12px 12px 40px; /* Left padding for icons */
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
 }
-.signup-form input[type = "email"] {
-	margin-top: 20px;
-}
-input {
+
+.input-container input:focus {
   outline: none;
- }
+  border-color: #21d4fd;
+  box-shadow: 0 0 8px rgba(33, 212, 253, 0.3);
+}
+
+.input-container input::placeholder {
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.input-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.input-container input:focus + .input-icon {
+  color: #21d4fd;
+}
+
+/* Button Styling */
+.signup-btn {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(145deg, #21d4fd, #b721ff);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.signup-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(33, 212, 253, 0.3);
+}
+
+/* Links Section */
 .links {
-	margin-top: 10px;
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
 }
-.links > a:first-of-type {
-    background-color: #ffffff;
-	margin-right: 5px;
-    margin-top: 20px;
-    padding: 20px;
+
+.links a {
+  color: #21d4fd;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: color 0.3s;
 }
-.links > a:last-of-type {
-	margin-right: 5px;
-    margin-top: 20px;
-    padding: 20px;
+
+.links a:hover {
+  color: #b721ff;
 }
-.links > a {	
-	background-color: #E0E0E0;
-	border-radius: 24px;
-	font-weight: 400;
-	color: black;
-	line-height: 12px;
-	flex: 1;
-	text-align: center;
-	padding: 10px;
-	text-decoration: none;
-  font-family: 'Raleway';
-	transition: 0.25s;
-}
-.links > a:hover {	
-	opacity: 0.6;
-}
-.signup-form input[type = "button"] {
-	background-color:  #da4444;
-	background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
-	width: 100%;
-	color: white;
-  	border: none;
-	margin-top: 35px;
-  	cursor: pointer;
-	padding: 10px;
-  	font-family: 'Raleway', sans-seriff;
-  	font-size: 1.3rem;
-	font-weight: bold;
-	border-radius: 24px;
-	transition: 0.25s;
-}
-.signup-form input[type = "button"]:hover {
-	opacity: 0.8;
-}
-.signup-form input[type = "text"]:focus, .signup-form input[type = "password"]:focus , .signup-form input[type = "email"] {
- 	border: 2px #21D4FD solid;
- }
-.signup-form input[type = "text"], .signup-form input[type = "password"], .signup-form input[type = "email"] {
-	width: 100%;
-	border: none;
-	border-radius: 24px;
-  	font-size: 1rem;
-  	font-family: 'Raleway', sans-seriff;
-	background-color: gainsboro;
-	padding: 15px;
-} 

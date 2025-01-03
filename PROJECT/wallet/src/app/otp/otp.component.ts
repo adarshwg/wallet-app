@@ -8,18 +8,21 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { OtpService } from './otp.service';
 import { SignupService } from '../signup/signup.service';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
-    selector: 'app-otp',
-    imports: [RouterLink, ReactiveFormsModule],
-    templateUrl: './otp.component.html',
-    styleUrl: './otp.component.css'
+  selector: 'app-otp',
+  imports: [RouterLink, ReactiveFormsModule, ToastModule],
+  templateUrl: './otp.component.html',
+  styleUrl: './otp.component.css',
 })
 export class OtpComponent implements OnInit {
   constructor(
     private signupService: SignupService,
     private otpService: OtpService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {}
   otpForm = new FormGroup({
     otp: new FormControl('', {
@@ -27,31 +30,34 @@ export class OtpComponent implements OnInit {
     }),
   });
   email!: string;
-  otp!: string;
+  otpVerified = false;
   ngOnInit(): void {
     this.email = this.signupService.getEmail();
     console.log(this.signupService.getEmail());
     this.otpService.sendOTP(this.email).subscribe({
       next: (resData: any) => {
         this.otpService.setOtp(resData);
-        this.otp = resData;
         console.log(resData);
       },
     });
   }
   onVerify() {
-    const verified = this.otpService.verify(this.otpForm.value.otp!);
-    if (verified) {
-      this.signupService.signup().subscribe({
-        next: (resData: any) => {
-          const access_token = resData.access_token;
-          localStorage.setItem('access_token', access_token);
-          this.router.navigate(['home']);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
+    this.otpService.verifyOTP(this.otpForm.value.otp!).subscribe({
+      next: (resData: any) => {
+        console.log(resData);
+        if (resData.status === 'success') {
+          this.signupService.signup().subscribe({
+            next: (resData: any) => {
+              const access_token = resData.access_token;
+              localStorage.setItem('access_token', access_token);
+              this.router.navigate(['home']);
+            },
+            error: (err) => {
+              console.log(err);
+            },
+          });
+        }
+      },
+    });
   }
 }

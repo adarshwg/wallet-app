@@ -81,7 +81,7 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
   contactTransactions!: [TransactionModel];
   enteredAmount!: number;
   paymentForm = new FormGroup({
-    amount: new FormControl(0, {
+    amount: new FormControl(0,{
       validators: [Validators.required],
     }),
   });
@@ -89,8 +89,20 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
     this.paymentConfirmation = false;
   }
   onPayClick() {
-    this.paymentConfirmation = true;
-    this.enteredAmount = this.paymentForm.value.amount!;
+    if(this.paymentForm.valid){
+      this.paymentConfirmation = true;
+      this.enteredAmount = this.paymentForm.value.amount!;
+    }
+    else {
+      this.messageService.add(
+        {
+          severity:'warn',
+          summary:'Invalid amount entered',
+          detail:'Please enter valid amount!'
+        }
+      )
+    }
+    
   }
   onSubmitMudraPin(mudraPin: number) {
     this.userService.verifyMudraPin(mudraPin).subscribe({

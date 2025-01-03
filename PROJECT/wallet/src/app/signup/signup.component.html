@@ -1,19 +1,55 @@
-<app-navbar/>
+<app-navbar />
 @if(otpVerification===false){
-    <div class="box">
-        <form class="signup-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-            <h1> Join MudraPay 💸</h1>
-            <input type="text" name="username" placeholder="New username" required formControlName="username">
-            <input type="email" name="email" placeholder="Email" required formControlName="email">
-            <input type="password" name="password" placeholder="Enter Password - min 8 characters"  required formControlName="password">
-            <input type="text" name="mudraPin" placeholder="Set your 6-digit mudra pin"  required formControlName="mudraPin">
-            <input type="button" (click)="onSubmit()" name="Signup" value="Create my account 🚀">
-            <div class="links">
-                <a [routerLink]="'/login'">Already a user ? Log in</a>
-            </div>
-        </form>    
+<div class="box">
+  <form class="signup-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <h1>Join MudraPay 💸</h1>
+    <!-- Username Input -->
+    <div class="input-container">
+      <input
+        type="text"
+        name="username"
+        placeholder="New username"
+        formControlName="username"
+        required
+      />
     </div>
-}
-@else {
-    <app-otp/>
+
+    <div class="input-container">
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        formControlName="email"
+        required
+      />
+    </div>
+
+    <div class="input-container">
+      <input
+        type="password"
+        name="password"
+        placeholder="Enter Password - min 8 characters"
+        required
+        formControlName="password"
+      />
+    </div>
+
+    <div class="input-container">
+      <input
+        type="text"
+        name="mudraPin"
+        placeholder="Set your 6-digit mudra pin"
+        required
+        formControlName="mudraPin"
+      />
+    </div>
+
+    <button type="submit" class="signup-btn">Create my account 🚀</button>
+    <div class="links">
+      <a [routerLink]="'/login'">Already a user ? Log in</a>
+    </div>
+  </form>
+</div>
+} @else {
+<app-otp />
 }

@@ -21,6 +21,7 @@ export class SignupService {
     return this.formData
   }
   signup(){
+    console.log(this.formData)
     return this.httpClient.post('http://localhost:8000/auth/signup', this.formData)
   }
 }

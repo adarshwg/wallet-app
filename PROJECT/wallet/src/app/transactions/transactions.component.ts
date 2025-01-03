@@ -35,8 +35,8 @@ export class TransactionsComponent implements OnInit {
     console.log(this.date)
   }
   p:any
-  d = new Date();
-  date = this.d.getFullYear()+'-'+(this.d.getMonth()+1)
+  d = new Date();  
+  date = this.d.getFullYear()+'-'+(this.d.getMonth()<10?'0':'')+(this.d.getMonth()+1)
   isViewingTransaction = false;
   currentTransactionDetails!:TransactionModel
  

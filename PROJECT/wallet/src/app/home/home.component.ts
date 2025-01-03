@@ -13,7 +13,8 @@ import { LoginService } from '../login/login.service';
 import { Router, UrlSegment } from '@angular/router';
 import { ContactsService } from '../contacts.service';
 import { UserService } from '../user/user.service';
-
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 @Component({
     selector: 'app-home',
     imports: [
@@ -21,6 +22,7 @@ import { UserService } from '../user/user.service';
         HomeNavComponent,
         SendMoneyComponent,
         ShowWalletComponent,
+        ToastModule
     ],
     templateUrl: './home.component.html',
     styleUrl: './home.component.css'
@@ -31,7 +33,8 @@ export class HomeComponent implements OnInit {
     private loginService: LoginService,
     private walletService: WalletService,
     private router:Router,
-    private userService: UserService
+    private userService: UserService,
+    private messageService:MessageService
   ) {}
 
   recentContacts! : string[]

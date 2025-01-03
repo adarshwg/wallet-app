@@ -1,4 +1,5 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
+import { ToastModule } from 'primeng/toast';
 import {
   FormControl,
   FormGroup,
@@ -6,14 +7,16 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-confirm-payment',
-    imports: [FormsModule, ReactiveFormsModule],
+    imports: [FormsModule, ReactiveFormsModule,ToastModule],
     templateUrl: './confirm-payment.component.html',
     styleUrls: ['./confirm-payment.component.css']
 })
 export class ConfirmPaymentComponent {
+  constructor(private messageService:MessageService){}
   @Output() cancel = new EventEmitter();
   @Output() mudraPin = new EventEmitter<number>();
   // failedAttempt = input.required<boolean>()
@@ -39,6 +42,11 @@ export class ConfirmPaymentComponent {
   });
 
   onCancel() {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Payment Failed',
+      detail: 'Payment Cancelled by the user',
+    });
     this.cancel.emit();
   }
 
