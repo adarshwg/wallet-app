@@ -66,6 +66,9 @@
             required
           />
         </div>
+        @if(!mudraPinForm.valid && !mudraPinForm.pristine &&mudraPinForm.touched){
+          <div>Enter Valid Pin</div>
+        }
         <button type="submit">Submit</button>
         <a class="cancel" (click)="onCancel()">Cancel</a>
       </form>

@@ -24,11 +24,11 @@ export class WalletService {
       }
     }))
   }
-  sendMoney(receiver:string, amount:number, mudra_pin:number){
+  sendMoney(receiver:string, amount:string, mudra_pin:number){
     const token = localStorage.getItem('access_token')
     return this.http.post('http://localhost:8000/wallet/payment',{
       receiver:receiver,
-      amount:amount,
+      amount:parseInt(amount),
       mudra_pin: mudra_pin,
       category: 'misc'
     },

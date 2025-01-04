@@ -56,8 +56,28 @@ export class OtpComponent implements OnInit {
               console.log(err);
             },
           });
+        } else {
+          this.messageService.add(
+            {
+              severity:'error',
+              summary:'Invalid OTP Entered! ',
+              detail:'Entered OTP is invalid. Please try again.'
+            }
+          )
         }
       },
-    });
+      error: (err) => {
+        this.messageService.add(
+          {
+            severity:'error',
+            summary:'OTP Expired! ',
+            detail:'The OTP has expired. Please request a new OTP.'
+          }
+        )
+        console.log(err)      
+      }
+    })
   }
 }
+  
+

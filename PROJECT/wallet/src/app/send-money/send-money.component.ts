@@ -1,5 +1,6 @@
 import { Component, input, signal } from '@angular/core';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -11,6 +12,8 @@ import { Router } from '@angular/router';
 import { UserService } from '../user/user.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { validateUsernameFormat } from '../validators/payment-validation';
+
 @Component({
   selector: 'app-send-money',
   imports: [ReactiveFormsModule, ToastModule],
@@ -24,9 +27,10 @@ export class SendMoneyComponent {
     private messageService: MessageService
   ) {}
   recentContacts = input.required<string[]>();
+
   paymentForm = new FormGroup({
     receiverUsername: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required, validateUsernameFormat],
     }),
   });
   payContact(contact: string) {
@@ -34,23 +38,42 @@ export class SendMoneyComponent {
     this.router.navigate(['home', 'pay-contact', contact]);
   }
   onPayUserSubmit() {
-    const receiver = this.paymentForm.value.receiverUsername!;
-    this.userService.checkIfUserExists(receiver).subscribe({
-      next: (resData: any) => {
-        console.log(resData, 'is the user status');
-        if (resData == true) {
-          this.router.navigate(['home', 'pay-contact', receiver]);
-        }else {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Payment Failed',
-            detail: receiver+' : user does not exist!',
-          });
-        }
-      },
-      error: (err) => {
-        console.log(err);        
-      },
-    });
+    if (this.paymentForm.valid) {
+      const receiver = this.paymentForm.value.receiverUsername!;
+      this.userService.checkIfUserExists(receiver).subscribe({
+        next: (resData: any) => {
+          console.log(resData, 'is the user status');
+          if (resData == true) {
+            this.router.navigate(['home', 'pay-contact', receiver]);
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Payment Failed',
+              detail: receiver + ' : user does not exist!',
+            });
+          }
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
+    else {
+      if(this.paymentForm.untouched || this.paymentForm.pristine){
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Enter a username',
+          detail: 'No username entered',
+        });
+      }
+      else {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Enter valid username',
+          detail: 'Invalid username entered',
+        });
+      }
+      
+    }
   }
 }

@@ -6,6 +6,9 @@
       <input placeholder="Enter the username" name="receiverUsername" formControlName="receiverUsername" > 
       <button class="button-86" id="pay-username-btn" role="button" (click)="onPayUserSubmit()">Make Payment 🚀</button>
     </form>        
+    @if(!paymentForm.valid&&paymentForm.dirty&&!paymentForm.pristine){
+      <div>Enter valid username</div>
+    }
     <div class="recent-contacts">
       <p class="recent-contacts-header">Recent Contacts</p>
       <ul>

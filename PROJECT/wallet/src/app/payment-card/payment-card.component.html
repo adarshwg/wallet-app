@@ -56,7 +56,11 @@
       />
       <button class="send-button" (click)="onPayClick()">➤</button>
     </form>
+     
   </div>
+  @if(paymentForm.dirty&&!paymentForm.valid&&!paymentForm.pristine){
+    <div style="color: #66bfbf;">Enter valid amount</div>
+  }  
 </div>
 
 }

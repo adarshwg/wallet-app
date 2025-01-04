@@ -23,7 +23,7 @@ export class OtpService {
     console.log(entered_otp)
     return this.httpClient.post('http://localhost:8000/otp/verify',{
       "entered_otp" :  entered_otp,
-      "hashed_otp" : this.otpHash
+      "otp_token" : this.otpHash
     })
   }
   sendOTP(email: string) {

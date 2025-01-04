@@ -30,6 +30,7 @@ import {
 import { ConfirmPaymentComponent } from '../confirm-payment/confirm-payment.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { validateAmount } from '../validators/payment-validation';
 
 @Component({
   selector: 'app-payment-card',
@@ -58,7 +59,6 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
   contactName!: string;
   username!: string;
   paymentConfirmation = false;
-  otpVerified = false;
   @ViewChild('scrollMe') private transactionScrollContainer!: ElementRef;
   scrollToBottom(): void {
     try {
@@ -79,21 +79,23 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
     this.scrollToBottom();
   }
   contactTransactions!: [TransactionModel];
-  enteredAmount!: number;
+  enteredAmount!: string;
   paymentForm = new FormGroup({
-    amount: new FormControl(0,{
-      validators: [Validators.required],
+    amount: new FormControl('',{
+      validators: [Validators.required,validateAmount],
     }),
   });
   onCancel() {
     this.paymentConfirmation = false;
   }
   onPayClick() {
+    console.log(this.paymentForm.valid)
     if(this.paymentForm.valid){
       this.paymentConfirmation = true;
       this.enteredAmount = this.paymentForm.value.amount!;
     }
     else {
+      this.paymentForm.reset()
       this.messageService.add(
         {
           severity:'warn',
@@ -105,11 +107,12 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
     
   }
   onSubmitMudraPin(mudraPin: number) {
+    this.paymentConfirmation = false;
     this.userService.verifyMudraPin(mudraPin).subscribe({
       next: (resData: any) => {
-        this.otpVerified = resData;
-        console.log(resData);
-        this.walletService
+        //mudra pin entered is correct
+        if(resData){
+          this.walletService
           .sendMoney(this.contactName, this.enteredAmount, mudraPin)
           .subscribe({
             next: (resData) => {
@@ -126,15 +129,34 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
                   this.contactName,
               });
             },
-            error: (err) => {
-              console.log(err);
+            error: (err:any) => {
+              //insufficient balance error
+              if(err.status==403){
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Insufficient Balance',
+                  detail: 'User Balance is low for the transaction'
+                });
+                console.log(err);
+              }              
             },
           });
+        }
+        //incorrect pin entered
+        else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Payment Unsuccessful',
+            detail: 'Incorrect Mudra Pin entered.'
+          });
+        }
       },
       error: (err) => {
+        console.log('caught hereeee')
         console.log(err);
       },
     });
+    this.paymentForm.reset()
   }
   getUsername() {
     this.userService.getUserDetails().subscribe({

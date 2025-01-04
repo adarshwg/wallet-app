@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { validatePinDigit } from '../validators/payment-validation';
 
 @Component({
     selector: 'app-confirm-payment',
@@ -22,22 +23,22 @@ export class ConfirmPaymentComponent {
   // failedAttempt = input.required<boolean>()
   mudraPinForm = new FormGroup({
     pin1: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required,validatePinDigit],
     }),
     pin2: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required,validatePinDigit],
     }),
     pin3: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required,validatePinDigit],
     }),
     pin4: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required,validatePinDigit],
     }),
     pin5: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required,validatePinDigit],
     }),
     pin6: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required,validatePinDigit],
     }),
   });
 
@@ -89,6 +90,12 @@ export class ConfirmPaymentComponent {
       console.log('Mudra Pin:', mudraPin);
       this.mudraPin.emit(mudraPinValue)
     } else {
+      this.mudraPinForm.reset()
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Invalid Pin!',
+        detail: 'Invalid pin entered! ',
+      });
       console.error('Invalid Pin');
     }
   }
