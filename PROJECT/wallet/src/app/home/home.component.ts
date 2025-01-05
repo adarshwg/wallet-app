@@ -41,6 +41,14 @@ export class HomeComponent implements OnInit {
   username = ''
 
   ngOnInit(): void {    
+    this.messageService.add(
+      {
+        severity:'info',
+        summary:'Welcome',
+        detail:'Welcome. Logged in successfully!'
+      }
+    )
+
     this.getUsername()
     this.getRecentContacts()
     this.getwalletBalance()

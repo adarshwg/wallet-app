@@ -48,6 +48,7 @@ export class OtpComponent implements OnInit {
         if (resData.status === 'success') {
           this.signupService.signup().subscribe({
             next: (resData: any) => {
+              console.log('heheheh')
               const access_token = resData.access_token;
               localStorage.setItem('access_token', access_token);
               this.router.navigate(['home']);

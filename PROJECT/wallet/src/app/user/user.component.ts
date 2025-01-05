@@ -72,11 +72,6 @@ export class UserComponent {
       next: (resData: any) => {
         console.log(resData);
         this.isChangingPassword = false;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Password Change Successful',
-          detail: 'User Password Changed Successfully',
-        });
       },
       error: (err) => {
         console.log(err);
@@ -93,11 +88,6 @@ export class UserComponent {
       next: (resData: any) => {
         console.log(resData);
         this.isChangingPin = false;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Pin Change Successful',
-          detail: 'Mudra Pin Changed Successfully',
-        });
       },
       error: (err) => {
         console.log(err);

@@ -1,6 +1,8 @@
 import { Component, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../user/user.service';
+import { MessageService } from 'primeng/api';
+import { validatePassword } from '../validators/payment-validation';
 
 @Component({
     selector: 'app-change-password',
@@ -9,45 +11,73 @@ import { UserService } from '../user/user.service';
     styleUrl: './change-password.component.css'
 })
 export class ChangePasswordComponent {
-  constructor(private userService:UserService){}
+  constructor(private userService:UserService,private messageService:MessageService){}
   cancel = output();
   newPassword = output<string>();
   changePasswordForm = new FormGroup({
     currentPassword: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required,validatePassword],
     }),
     newPassword: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required,validatePassword],
     }),
     confirmNewPassword: new FormControl('', {
-      validators: [Validators.required],
+      validators: [Validators.required,validatePassword],
     }),
   });
   onSubmit() {
-    console.log('submitting the data')
-    const currentPassword = this.changePasswordForm.value.currentPassword
-    const newPassword = this.changePasswordForm.value.newPassword
-    const confirmNewPassword = this.changePasswordForm.value.confirmNewPassword
-    console.log(currentPassword,newPassword,confirmNewPassword, ' is the psssss')
-    this.userService.verifyPassword(currentPassword!).subscribe(
-      {
-        next:(resData:any) => {
-          console.log(resData)
-          if(resData){
-            if(newPassword===confirmNewPassword){
-              console.log('emitted new password')
-              this.newPassword.emit(newPassword!)
+    if (this.changePasswordForm.valid) {
+      const currentPassword = this.changePasswordForm.value.currentPassword!;
+      const newPassword = this.changePasswordForm.value.newPassword;
+      const confirmNewPassword = this.changePasswordForm.value.confirmNewPassword;
+      if(newPassword===confirmNewPassword){
+        this.userService.verifyPassword(currentPassword).subscribe({
+          next: (resData: any) => {
+            if (resData) {
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Password changed',
+                  detail: 'Your Password has been changed successfully',
+                });
+                this.newPassword.emit(newPassword!);
+            }else {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Invalid Password',
+                detail: 'Invalid Password entered! ',
+              });
             }
-            else {
-              this.cancel.emit()
-            }
-          }
-        }
+          },
+        });
       }
-    )
-
+      else {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Passwords Do not Match!',
+          detail: 'New password and confirm password do not match! ',
+        });
+      }
+      
+    }else if(this.changePasswordForm.pristine){
+      this.messageService.add({
+        severity: 'info',
+        summary: 'No values entered',
+        detail: 'No values for the password entered! ',
+      });
+    }else {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Invalid Password',
+        detail: 'Please enter passwords in correct format! ',
+      });
+    }
   }
   onCancel() {
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Cancelled',
+      detail: 'Password change cancelled',
+    });
     this.cancel.emit();
   }
 }
