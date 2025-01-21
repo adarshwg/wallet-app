@@ -1,6 +1,7 @@
 import {
   Component,
   DestroyRef,
+  inject,
   OnInit,
   signal
 } from '@angular/core';
@@ -15,6 +16,10 @@ import { ContactsService } from '../contacts.service';
 import { UserService } from '../user/user.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { RecentContactsModel } from '../modals/transaction-modals';
+import { WalletBalanceModel } from '../modals/wallet-modals';
+import { UserDetailsModel } from '../modals/user-credentials-modals';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
     selector: 'app-home',
     imports: [
@@ -36,7 +41,7 @@ export class HomeComponent implements OnInit {
     private userService: UserService,
     private messageService:MessageService
   ) {}
-
+  destroyRef = inject(DestroyRef)
   recentContacts! : string[]
   username = ''
 
@@ -54,21 +59,25 @@ export class HomeComponent implements OnInit {
     this.getwalletBalance()
   }
   getUsername(){
-      this.userService.getUserDetails().subscribe(
+      this.userService.getUserDetails()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(
         {
-          next: (resData:any) => {
-            console.log(resData)
-            this.username = resData.username
+          next: (userDetails:UserDetailsModel) => {
+            console.log(userDetails)
+            this.username = userDetails.username
           }
         }
       )  
   }
   getRecentContacts() {
-      this.contactsService.getRecentContactsData().subscribe(
+      this.contactsService.getRecentContactsData()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(
       {
-        next: (resData :any)=>{
-          console.log(resData)
-          this.recentContacts = resData;
+        next: (recentContactsResponse :RecentContactsModel)=>{
+          console.log(recentContactsResponse)
+          this.recentContacts = recentContactsResponse;
         },
         error: (err)=> {   
           console.log(err)
@@ -82,10 +91,13 @@ export class HomeComponent implements OnInit {
   }
 
   getwalletBalance(){
-      this.walletService.getWalletBalance().subscribe(
+      
+      this.walletService.getWalletBalance()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(
       {
-        next: (resData:any) =>{
-          this.walletService.walletBalance.set(resData)
+        next: (walletBalance:WalletBalanceModel) =>{
+          this.walletService.walletBalance.set(walletBalance);
         },
         error:(err) => {
           console.log(err)

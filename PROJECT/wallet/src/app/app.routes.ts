@@ -7,11 +7,12 @@ import { HomeComponent } from './home/home.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { UserComponent } from './user/user.component';
 import { PaymentCardComponent } from './payment-card/payment-card.component';
+import { AuthGuard } from './authguard.service';
 
 export const routes: Routes = [
   {
     path: '',
-    component: LandingPageComponent,
+    component: LandingPageComponent
   },
   {
     path: 'login',
@@ -32,10 +33,12 @@ export const routes: Routes = [
   },
   {
     path: 'transactions',
-    component: TransactionsComponent
+    component: TransactionsComponent,
+    canActivate:[AuthGuard]
   },
   {
     path: 'home',
+    canActivate:[AuthGuard],
     children:[
       {
         path: '',
@@ -49,6 +52,7 @@ export const routes: Routes = [
   },
   {
     path: 'user',
-    component: UserComponent
+    component: UserComponent,
+    canActivate:[AuthGuard]
   }  
 ];

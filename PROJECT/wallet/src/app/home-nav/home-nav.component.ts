@@ -1,7 +1,6 @@
 import { Component, input } from '@angular/core';
 import { Router } from '@angular/router';
-import { WalletBalanceModel } from '../modals/modals';
-
+import { WalletBalanceModel } from '../modals/wallet-modals';
 @Component({
     selector: 'app-home-nav',
     imports: [],

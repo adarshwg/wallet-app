@@ -7,6 +7,9 @@ import { ChangePasswordComponent } from '../change-password/change-password.comp
 import { ChangePinComponent } from '../change-pin/change-pin.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { UpdateMudraPinModel, UpdatePasswordModel } from '../modals/user-credentials-modals';
+import { WalletBalanceModel } from '../modals/wallet-modals';
+import { UserDetailsModel } from '../modals/modals';
 @Component({
   selector: 'app-user',
   imports: [
@@ -34,10 +37,10 @@ export class UserComponent {
 
   getUserDetails() {
     this.userService.getUserDetails().subscribe({
-      next: (resData: any) => {
-        console.log(resData);
-        this.userService.username = resData.username;
-        this.userService.email = resData.email;
+      next: (userDetails: UserDetailsModel) => {
+        console.log(userDetails);
+        this.userService.username = userDetails.username;
+        this.userService.email = userDetails.email;
       },
     });
   }
@@ -55,8 +58,8 @@ export class UserComponent {
   }
   getwalletBalance() {
     this.walletService.getWalletBalance().subscribe({
-      next: (resData: any) => {
-        this.walletService.walletBalance.set(resData);
+      next: (walletBalance: WalletBalanceModel) => {
+        this.walletService.walletBalance.set(walletBalance);
       },
       error: (err) => {
         console.log(err);
@@ -69,8 +72,8 @@ export class UserComponent {
   onChangePassword(newPassword: string) {
     console.log('changing the user password');
     this.userService.updatePassword(newPassword).subscribe({
-      next: (resData: any) => {
-        console.log(resData);
+      next: (updatePasswordResponse: UpdatePasswordModel) => {
+        console.log(updatePasswordResponse);
         this.isChangingPassword = false;
       },
       error: (err) => {
@@ -85,8 +88,8 @@ export class UserComponent {
   onChangeMudraPin(newMudraPin: number) {
     console.log('changing the mudra pin');
     this.userService.updateMudraPin(newMudraPin).subscribe({
-      next: (resData: any) => {
-        console.log(resData);
+      next: (updatePinResponse: UpdateMudraPinModel) => {
+        console.log(updatePinResponse);
         this.isChangingPin = false;
       },
       error: (err) => {

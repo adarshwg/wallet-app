@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, NgZone, signal } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { Injectable} from '@angular/core';
+import { LoginURL } from '../endpoints/auth-endpoints';
+import { TokenModel } from '../modals/token-modal';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +11,8 @@ export class LoginService {
   private loginSuccessful = false;
   username! :string;
   constructor(private httpClient: HttpClient) {}
-  login(formData: FormData) {
-    return this.httpClient.post('http://localhost:8000/auth/login', formData)
+  login(formData: FormData): Observable<TokenModel>{
+    return this.httpClient.post<TokenModel>(LoginURL, formData)
   }
   getLoginSuccessful(){
     return this.loginSuccessful

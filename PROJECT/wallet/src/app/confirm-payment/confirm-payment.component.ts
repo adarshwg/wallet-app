@@ -83,11 +83,9 @@ export class ConfirmPaymentComponent {
   }
 
   onSubmitMudraPin() {
-    console.log('hereeeeeee')
     if (this.mudraPinForm.valid) {
       const mudraPin = Object.values(this.mudraPinForm.value).join('');
       const mudraPinValue = parseInt(mudraPin)
-      console.log('Mudra Pin:', mudraPin);
       this.mudraPin.emit(mudraPinValue)
     } else {
       this.mudraPinForm.reset()

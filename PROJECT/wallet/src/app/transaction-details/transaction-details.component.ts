@@ -1,5 +1,5 @@
-import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
-import { TransactionModel } from '../modals/modals';
+import { Component, DestroyRef, EventEmitter, inject, input, OnInit, Output } from '@angular/core';
+import { TransactionModel, UserDetailsModel } from '../modals/modals';
 import { UserService } from '../user/user.service';
 import { Router } from '@angular/router';
 
@@ -14,12 +14,13 @@ export class TransactionDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.getCurrentUserDetails();
   }
+  destroyRef = inject(DestroyRef)
   username = '';
   getCurrentUserDetails() {
     this.userService.getUserDetails().subscribe({
-      next: (resData: any) => {
+      next: (userDetailsResponse: UserDetailsModel) => {
         console.log('user details called inside transaction details');
-        this.username = resData.username;
+        this.username = userDetailsResponse.username;
       },
     });
   }

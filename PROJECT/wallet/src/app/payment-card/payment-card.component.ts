@@ -31,6 +31,9 @@ import { ConfirmPaymentComponent } from '../confirm-payment/confirm-payment.comp
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { validateAmount } from '../validators/payment-validation';
+import { ContactTransactionsModel, TransactionsModel } from '../modals/transaction-modals';
+import { SendMoneyModel, WalletBalanceModel } from '../modals/wallet-modals';
+import { VerifyMudraPinModel } from '../modals/user-credentials-modals';
 
 @Component({
   selector: 'app-payment-card',
@@ -78,7 +81,7 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     this.scrollToBottom();
   }
-  contactTransactions!: [TransactionModel];
+  contactTransactions!: Array<TransactionsModel>
   enteredAmount!: string;
   paymentForm = new FormGroup({
     amount: new FormControl('',{
@@ -109,14 +112,14 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
   onSubmitMudraPin(mudraPin: number) {
     this.paymentConfirmation = false;
     this.userService.verifyMudraPin(mudraPin).subscribe({
-      next: (resData: any) => {
+      next: (verifyPinResponse: VerifyMudraPinModel) => {
         //mudra pin entered is correct
-        if(resData){
+        if(verifyPinResponse){
           this.walletService
           .sendMoney(this.contactName, this.enteredAmount, mudraPin)
           .subscribe({
-            next: (resData) => {
-              console.log(resData);
+            next: (verifyPinResponse:SendMoneyModel) => {
+              console.log(verifyPinResponse);
               this.getContactTransactions();
               this.paymentConfirmation = false;
               this.messageService.add({
@@ -160,9 +163,9 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
   }
   getUsername() {
     this.userService.getUserDetails().subscribe({
-      next: (resData: any) => {
-        console.log(resData);
-        this.username = resData.username;
+      next: (userDetails: UserDetailsModel) => {
+        console.log(userDetails);
+        this.username = userDetails.username;
       },
     });
   }
@@ -170,9 +173,9 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
     this.transactionsService
       .getTransactionsForContact(this.contactName)
       .subscribe({
-        next: (resData: any) => {
-          console.log(resData);
-          this.contactTransactions = resData;
+        next: (contactTransactions: ContactTransactionsModel) => {
+          console.log(contactTransactions);
+          this.contactTransactions = contactTransactions;
         },
       });
   }
@@ -182,8 +185,8 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
 
   getwalletBalance() {
     this.walletService.getWalletBalance().subscribe({
-      next: (resData: any) => {
-        this.walletService.walletBalance.set(resData);
+      next: (walletBalance: WalletBalanceModel) => {
+        this.walletService.walletBalance.set(walletBalance);
       },
       error: (err) => {
         console.log(err);

@@ -13,6 +13,7 @@ import { UserService } from '../user/user.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { validateUsernameFormat } from '../validators/payment-validation';
+import { VerifyUserExistsModel } from '../modals/user-credentials-modals';
 
 @Component({
   selector: 'app-send-money',
@@ -41,9 +42,9 @@ export class SendMoneyComponent {
     if (this.paymentForm.valid) {
       const receiver = this.paymentForm.value.receiverUsername!;
       this.userService.checkIfUserExists(receiver).subscribe({
-        next: (resData: any) => {
-          console.log(resData, 'is the user status');
-          if (resData == true) {
+        next: (userExistsResponse: VerifyUserExistsModel) => {
+          console.log(userExistsResponse, 'is the user status');
+          if (userExistsResponse == true) {
             this.router.navigate(['home', 'pay-contact', receiver]);
           } else {
             this.messageService.add({

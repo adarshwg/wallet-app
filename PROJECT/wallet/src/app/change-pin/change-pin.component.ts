@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, DestroyRef, inject, output } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,6 +8,8 @@ import {
 import { UserService } from '../user/user.service';
 import { validateMudraPinFormat } from '../validators/change-pin-validations';
 import { MessageService } from 'primeng/api';
+import { VerifyMudraPinModel } from '../modals/user-credentials-modals';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-change-pin',
   imports: [ReactiveFormsModule],
@@ -18,6 +20,7 @@ export class ChangePinComponent {
   constructor(private userService: UserService
     ,private messageService: MessageService) {}
   cancel = output();
+  destroyRef = inject(DestroyRef)
   newMudraPin = output<number>();
   changePinForm = new FormGroup({
     currentPin: new FormControl('', {
@@ -37,10 +40,12 @@ export class ChangePinComponent {
       const confirmNewPin = this.changePinForm.value.confirmNewPin;
       console.log(currentPin, newPin, confirmNewPin, ' is the psssss');
       if(newPin===confirmNewPin){
-        this.userService.verifyMudraPin(currentPin).subscribe({
-          next: (resData: any) => {
-            console.log(resData);
-            if (resData) {
+        this.userService.verifyMudraPin(currentPin)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
+          next: (verifyPinResponse: VerifyMudraPinModel) => {
+            console.log(verifyPinResponse);
+            if (verifyPinResponse) {
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Pin changed successful!',

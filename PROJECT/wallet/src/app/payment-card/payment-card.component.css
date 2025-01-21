@@ -15,7 +15,7 @@
     background-color: #181837; /* Matches wallet background */
     border-radius: 10px;
     padding: 100px; /* Matches wallet padding */
-    width: 35%; /* Matches wallet width */
+    width: 50%; /* Matches wallet width */
     max-height: 70%;
     margin: 10px auto; /* Centers the card horizontally */
     cursor: pointer;

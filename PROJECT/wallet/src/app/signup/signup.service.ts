@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { SignupURL } from '../endpoints/auth-endpoints';
+import { TokenModel } from '../modals/token-modal';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +23,8 @@ export class SignupService {
   getSignupData(){
     return this.formData
   }
-  signup(){
+  signup() : Observable<TokenModel>{
     console.log(this.formData)
-    return this.httpClient.post('http://localhost:8000/auth/signup', this.formData)
+    return this.httpClient.post<TokenModel>(SignupURL, this.formData)
   }
 }

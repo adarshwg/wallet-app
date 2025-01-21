@@ -1,7 +1,7 @@
 import { Component, input, Input, OnInit } from '@angular/core';
 import { LoginService } from '../login/login.service';
 import { WalletService } from '../wallet/wallet.service';
-import { WalletBalanceModel } from '../modals/modals';
+import { WalletBalanceModel } from '../modals/wallet-modals';
 
 @Component({
     selector: 'app-show-wallet',

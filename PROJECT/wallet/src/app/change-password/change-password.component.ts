@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { UserService } from '../user/user.service';
 import { MessageService } from 'primeng/api';
 import { validatePassword } from '../validators/payment-validation';
+import { VerifyPasswordModel } from '../modals/user-credentials-modals';
 
 @Component({
     selector: 'app-change-password',
@@ -32,8 +33,8 @@ export class ChangePasswordComponent {
       const confirmNewPassword = this.changePasswordForm.value.confirmNewPassword;
       if(newPassword===confirmNewPassword){
         this.userService.verifyPassword(currentPassword).subscribe({
-          next: (resData: any) => {
-            if (resData) {
+          next: (verifyPasswordResponse: VerifyPasswordModel) => {
+            if (verifyPasswordResponse) {
                 this.messageService.add({
                   severity: 'success',
                   summary: 'Password changed',

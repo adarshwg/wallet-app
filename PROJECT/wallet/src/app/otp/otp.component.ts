@@ -10,6 +10,8 @@ import { OtpService } from './otp.service';
 import { SignupService } from '../signup/signup.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { OTPModel, VerifyOTPModel } from '../modals/user-credentials-modals';
+import { TokenModel } from '../modals/token-modal';
 
 @Component({
   selector: 'app-otp',
@@ -35,21 +37,21 @@ export class OtpComponent implements OnInit {
     this.email = this.signupService.getEmail();
     console.log(this.signupService.getEmail());
     this.otpService.sendOTP(this.email).subscribe({
-      next: (resData: any) => {
-        this.otpService.setOtp(resData);
-        console.log(resData);
+      next: (otpModel: OTPModel) => {
+        this.otpService.setOtp(otpModel);
+        console.log(otpModel);
       },
     });
   }
   onVerify() {
     this.otpService.verifyOTP(this.otpForm.value.otp!).subscribe({
-      next: (resData: any) => {
-        console.log(resData);
-        if (resData.status === 'success') {
+      next: (verifyOTPResponse: VerifyOTPModel) => {
+        console.log(verifyOTPResponse);
+        if (verifyOTPResponse.status === 'success') {
           this.signupService.signup().subscribe({
-            next: (resData: any) => {
+            next: (verifyOTPResponse: TokenModel) => {
               console.log('heheheh')
-              const access_token = resData.access_token;
+              const access_token = verifyOTPResponse.access_token;
               localStorage.setItem('access_token', access_token);
               this.router.navigate(['home']);
             },
