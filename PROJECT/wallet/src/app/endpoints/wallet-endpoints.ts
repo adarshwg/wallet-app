@@ -1,2 +1,3 @@
-export const WalletBalanceURL = 'http://localhost:8000/wallet/balance'
-export const PaymentURL = 'http://localhost:8000/wallet/payment'
+import { BASEURL } from "./api.baseurl"
+export const WalletBalanceURL = BASEURL+'/wallet'
+export const PaymentURL = BASEURL+'/wallet'

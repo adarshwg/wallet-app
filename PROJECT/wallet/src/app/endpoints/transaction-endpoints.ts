@@ -1,3 +1,6 @@
-export const TransactionsURL = 'http://localhost:8000/transactions/month'
-export const ContactTransactionsURL = 'http://localhost:8000/transactions/contact/'
-export const RecentContactsURL = 'http://localhost:8000/transactions/recent-contacts'
+import { BASEURL } from "./api.baseurl"
+
+export const TransactionsURL = BASEURL+'/transactions/month'
+export const ContactTransactionsURL = BASEURL+'/transactions/contact/'
+export const RecentContactsURL = BASEURL+'/transactions/recent-contacts'
+export const NTransactionsURL =  BASEURL+'/transactions/show'

@@ -1,13 +1,10 @@
 import { Component, input, signal } from '@angular/core';
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { WalletService } from '../wallet/wallet.service';
-import { ContactsService } from '../contacts.service';
 import { Router } from '@angular/router';
 import { UserService } from '../user/user.service';
 import { MessageService } from 'primeng/api';
@@ -50,8 +47,9 @@ export class SendMoneyComponent {
             this.messageService.add({
               severity: 'error',
               summary: 'Payment Failed',
-              detail: receiver + ' : user does not exist!',
+              detail: receiver + ' : User does not exist!',
             });
+            this.paymentForm.reset();
           }
         },
         error: (err) => {

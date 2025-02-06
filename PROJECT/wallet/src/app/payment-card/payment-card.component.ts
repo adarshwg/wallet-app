@@ -112,7 +112,7 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
   onSubmitMudraPin(mudraPin: number) {
     this.paymentConfirmation = false;
     this.userService.verifyMudraPin(mudraPin).subscribe({
-      next: (verifyPinResponse: VerifyMudraPinModel) => {
+      next: (verifyPinResponse: any) => {
         //mudra pin entered is correct
         if(verifyPinResponse){
           this.walletService

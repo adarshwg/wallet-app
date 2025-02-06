@@ -7,6 +7,9 @@
 @else if (isChangingPassword){
   <app-change-password (cancel)="onCancel()" (newPassword)="onChangePassword($event)"/>
 }
+@if(isLoading){
+  <app-spinner/>
+}
 
 
 

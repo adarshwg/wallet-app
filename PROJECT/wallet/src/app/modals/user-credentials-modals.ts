@@ -1,10 +1,6 @@
-export interface OTPModel extends String {}
 export interface VerifyPasswordModel extends Boolean {}
 export interface VerifyMudraPinModel extends Boolean {}
 export interface VerifyUserExistsModel extends Boolean {}
-export interface VerifyOTPModel{
-    status: "success"|"failure"
-}
 export interface UserDetailsModel {
   username: string;
   email: string;
@@ -16,4 +12,14 @@ export interface UpdatePasswordModel {
 export interface UpdateMudraPinModel {
   username: string;
   status: string;
+}
+export interface NewPassowrdModel {
+  entered_password: string,
+  new_password:string
+}
+export interface SignupModel{
+  username:string,
+  entered_password:string,
+  entered_email:string,
+  entered_mudra_pin:number
 }

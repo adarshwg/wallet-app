@@ -3,28 +3,22 @@ import { Injectable } from '@angular/core';
 import { SignupURL } from '../endpoints/auth-endpoints';
 import { TokenModel } from '../modals/token-modal';
 import { Observable } from 'rxjs';
+import { SignupModel } from '../modals/user-credentials-modals';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignupService {
   constructor(private httpClient:HttpClient){}
-  email!:string
-  formData!:FormData
-  getEmail(){
-    return this.email
-  }
-  setEmail(email:string){
-    this.email = email;
-  }
-  setSignupData(formData:FormData){
+  formData!:SignupModel
+  setSignupData(formData:SignupModel){
     this.formData = formData;
   }
   getSignupData(){
     return this.formData
   }
-  signup() : Observable<TokenModel>{
+  signup(){
     console.log(this.formData)
-    return this.httpClient.post<TokenModel>(SignupURL, this.formData)
+    return this.httpClient.post(SignupURL, this.formData)
   }
 }

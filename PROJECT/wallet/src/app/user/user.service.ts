@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UpdateMudraPinURL, UpdatePasswordURL, UserDetailsURL, VerifyUserExistsURL } from '../endpoints/user-endpoints';
 import { MudraPinVerificationURL, PasswordVerificationURL } from '../endpoints/auth-endpoints';
-import { UpdateMudraPinModel, UpdatePasswordModel, VerifyMudraPinModel, VerifyPasswordModel, VerifyUserExistsModel } from '../modals/user-credentials-modals';
+import { NewPassowrdModel, UpdateMudraPinModel, UpdatePasswordModel, VerifyMudraPinModel, VerifyPasswordModel, VerifyUserExistsModel } from '../modals/user-credentials-modals';
 import { UserDetailsModel } from '../modals/modals';
 import { Observable } from 'rxjs';
 
@@ -19,9 +19,9 @@ export class UserService {
         headers: new HttpHeaders().set('Authorization','Bearer '+token)
       })
   }
-  verifyMudraPin(mudraPin:number) : Observable<VerifyMudraPinModel>{
+  verifyMudraPin(mudraPin:number) {
     const token = localStorage.getItem('access_token');
-    return this.http.post<VerifyMudraPinModel>(MudraPinVerificationURL, {
+    return this.http.post(MudraPinVerificationURL, {
       entered_mudra_pin:mudraPin
     },
     {
@@ -37,19 +37,20 @@ export class UserService {
       headers: new HttpHeaders().set('Authorization','Bearer '+token)
     })
   }
-  updateMudraPin(newMudraPin:number) : Observable<UpdateMudraPinModel>{
+  updateMudraPin(newMudraPin:number) {
     const token = localStorage.getItem('access_token');
-    return this.http.post<UpdateMudraPinModel>(UpdateMudraPinURL, {
-      entered_mudra_pin:newMudraPin
+    return this.http.post(UpdateMudraPinURL, {
+      entered_pin:newMudraPin
     },
     {
       headers: new HttpHeaders().set('Authorization','Bearer '+token)
     })
   }
-  updatePassword(newPassword:string) : Observable<UpdatePasswordModel>{
+  updatePassword(newPassword:NewPassowrdModel){
     const token = localStorage.getItem('access_token');
-    return this.http.post<UpdatePasswordModel>(UpdatePasswordURL, {
-      entered_password:newPassword
+    return this.http.post(UpdatePasswordURL, {
+      entered_password:newPassword.entered_password,
+      new_password:newPassword.new_password
     },
     {
       headers: new HttpHeaders().set('Authorization','Bearer '+token)

@@ -50,16 +50,17 @@ export class LoginComponent {
   ) {}
   //add validations - length, numeric
   loginFailed!: boolean;
+  isLoading = false;
   onSubmit() {
     let formValues = this.loginForm.value;
     const username = formValues.username;
     const password = formValues.password;
-    const mudraPin = formValues.mudraPin;
-    let formData = new FormData();
-    formData.append('grant_type', 'password');
-    formData.append('username', username!);
-    formData.append('password', password!);
-    formData.append('client_secret', mudraPin!);
+    const mudraPin = Number(formValues.mudraPin);
+    const formData = {
+      username:username,
+      entered_password:password,
+      entered_mudra_pin:mudraPin
+    }
     if (this.loginForm.invalid) {
       console.log(this.loginForm.controls.mudraPin.valid);
       console.log(this.loginForm.controls.username.valid);
@@ -70,10 +71,13 @@ export class LoginComponent {
         detail: 'Invalid credentials entered. Please try again',
       });
     } else {
+      console.log(formData)
+      this.isLoading=true;
       this.loginService.login(formData)
-      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (loginResponse: TokenModel) => {
+        next: (loginResponse:any) => {
+          this.isLoading=false;
+          console.log(loginResponse)
           this.messageService.add({
             severity: 'info',
             summary: 'Welcome',
@@ -89,6 +93,7 @@ export class LoginComponent {
           this.router.navigate(['home']);
         },
         error: (err) => {
+          this.isLoading=false;
           this.messageService.add({
             severity: 'info',
             summary: 'Invalid Credentials',

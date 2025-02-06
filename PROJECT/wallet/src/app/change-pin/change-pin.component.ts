@@ -43,14 +43,9 @@ export class ChangePinComponent {
         this.userService.verifyMudraPin(currentPin)
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
-          next: (verifyPinResponse: VerifyMudraPinModel) => {
+          next: (verifyPinResponse: any) => {
             console.log(verifyPinResponse);
             if (verifyPinResponse) {
-                this.messageService.add({
-                  severity: 'success',
-                  summary: 'Pin changed successful!',
-                  detail: 'Your Mudra Pin has been changed successfully',
-                });
                 this.newMudraPin.emit(parseInt(newPin!));
             }else {
               this.messageService.add({

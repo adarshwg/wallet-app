@@ -6,6 +6,9 @@
   background-color: #222245;
   color: #f9f9f9; /* Default font color for the page */
 }
+.no-transactions {
+  background-color: white;
+}
 
 .transaction-list {
   max-width: 600px;

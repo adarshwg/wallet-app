@@ -16,11 +16,14 @@ export class WalletService {
   constructor(private http: HttpClient){}
   getWalletBalance() : Observable<WalletBalanceModel> {
     const token = localStorage.getItem('access_token');
+    console.log('gettingggggg')
     return this.http
     .get<WalletBalanceModel>(WalletBalanceURL, {
       headers: new HttpHeaders().set('Authorization','Bearer '+token)
     }).pipe(tap({
       next:(resData:WalletBalanceModel)=>{
+        console.log('data is cominggggg')
+        console.log(resData)
         this.walletBalance.set(resData)
       }
     }))

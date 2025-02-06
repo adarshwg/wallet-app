@@ -1,29 +1,51 @@
 <app-sidebar />
-<app-home-nav [walletBalance]="getWalletBalanceValue()()"/>
+<app-home-nav [walletBalance]="getWalletBalanceValue()()" />
 
+<p-toast />
+
+@if(isLoading){
+  <app-spinner/>
+}
 @if(isViewingTransaction){
-  <app-transaction-details [transactionDetails]="currentTransactionDetails" (cancel)="onStopViewingTransaction()"/>
+<app-transaction-details
+  [transactionDetails]="currentTransactionDetails"
+  (cancel)="onStopViewingTransaction()"
+/>
 }
 <div class="transaction-list">
   <div class="filter">
-    <label for="month" >Choose Month and Year:</label>
-    <input type="month" id="month" [(ngModel)]="date"/>
+    <label for="month">Choose Month:</label>
+    <input
+      type="month"
+      id="month"
+      (change)="onMonthChange()"
+      [(ngModel)]="date"
+    />
   </div>
-  <div class="transactions">   
-    <div (click)="onStartViewingTransaction(transaction)" class="transaction" *ngFor="let transaction of transactions | paginate: {itemsPerPage:5, currentPage:p}">
+  <div class="transactions">
+    <!-- @if(transactions){
+    <div class="no-transactions">No transactins were found</div>
+    } -->
+    <div
+      (click)="onStartViewingTransaction(transaction)"
+      class="transaction"
+      *ngFor="
+        let transaction of transactions.reverse()| paginate: {itemsPerPage:5, currentPage:p} 
+      "
+    >
       <div>
         <div class="avatar">
-          <img src="cartoon.avif" alt="Avatar" />
+          <img src="cartoon.avif" alt="Avatar"/>
         </div>
         <div class="details">
           @if(username===transaction.receiver){
-            <p class="username">{{ transaction.sender }}</p>
-            <p class="date">
-              {{ transaction.day }}/{{ transaction.month }}/{{ transaction.year }}
-            </p>
-            <div class="amount">
-              <p>+ ₹{{ transaction.amount }}</p>
-            </div>
+          <p class="username">{{ transaction.sender }}</p>
+          <p class="date">
+            {{ transaction.day }}/{{ transaction.month }}/{{ transaction.year }}
+          </p>
+          <div class="amount">
+            <p>+ ₹{{ transaction.amount }}</p>
+          </div>
           } @else {
           <p class="username">
             {{ transaction.receiver }}
@@ -32,17 +54,18 @@
             {{ transaction.day }}/{{ transaction.month }}/{{ transaction.year }}
           </p>
           <p class="category">
-            {{transaction.category}}
+            {{ transaction.category }}
           </p>
           <div class="amount">
-            <p>-  ₹{{ transaction.amount }}</p>
+            <p>- ₹{{ transaction.amount }}</p>
           </div>
           }
-          
         </div>
       </div>
-      
     </div>
-    <pagination-controls (pageChange)="p=$event" class="float-right"></pagination-controls>
+    <pagination-controls
+      (pageChange)="p = $event"
+      class="float-right"
+    ></pagination-controls>
   </div>
 </div>

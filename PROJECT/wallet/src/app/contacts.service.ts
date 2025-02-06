@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
 })
 export class ContactsService {
   constructor(private http: HttpClient) {}
-  getRecentContactsData(): Observable<RecentContactsModel>{
+  recentContacts! : string[]
+  getRecentContactsData(){
     const token = localStorage.getItem('access_token');
     return this.http.get<RecentContactsModel>(RecentContactsURL, {
       headers: new HttpHeaders().set('Authorization','Bearer '+token)

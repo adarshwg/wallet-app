@@ -11,8 +11,8 @@ export class LoginService {
   private loginSuccessful = false;
   username! :string;
   constructor(private httpClient: HttpClient) {}
-  login(formData: FormData): Observable<TokenModel>{
-    return this.httpClient.post<TokenModel>(LoginURL, formData)
+  login(formData: any){
+    return this.httpClient.post(LoginURL, formData)
   }
   getLoginSuccessful(){
     return this.loginSuccessful

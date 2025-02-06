@@ -1,4 +1,5 @@
-export const LoginURL = 'http://localhost:8000/auth/login'
-export const SignupURL = 'http://localhost:8000/auth/signup'
-export const MudraPinVerificationURL = 'http://localhost:8000/user/pin-verification'
-export const PasswordVerificationURL = 'http://localhost:8000/user/password-verification'
+import { BASEURL } from "./api.baseurl"
+export const LoginURL = BASEURL+'/auth/login'
+export const SignupURL = BASEURL+'/auth/signup'
+export const MudraPinVerificationURL = BASEURL+'/user/pin-verification'
+export const PasswordVerificationURL = BASEURL+'/user/password-verification'

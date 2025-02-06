@@ -14,13 +14,6 @@ export function validateMudraPinFormat(control: AbstractControl) {
   }
   return null;
 }
-export function validateOTP(control: AbstractControl) {
-  const otpPattern = /^\d{6}$/;
-  if (control.value && !otpPattern.test(control.value)) {
-    return { invalidOtp: true };
-  }
-  return null;
-}
 export function validatePassword(control: AbstractControl) {
   const passwordPattern =
     /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{5,}$/;

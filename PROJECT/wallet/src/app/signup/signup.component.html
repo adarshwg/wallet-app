@@ -1,5 +1,4 @@
 <app-navbar />
-@if(otpVerification===false){
 <div class="box">
   <form class="signup-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
     <h1>Join MudraPay 💸</h1>
@@ -50,6 +49,3 @@
     </div>
   </form>
 </div>
-} @else {
-<app-otp />
-}

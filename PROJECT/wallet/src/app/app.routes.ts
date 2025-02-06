@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { OtpComponent } from './otp/otp.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { HomeComponent } from './home/home.component';
 import { TransactionsComponent } from './transactions/transactions.component';
 import { UserComponent } from './user/user.component';
 import { PaymentCardComponent } from './payment-card/payment-card.component';
 import { AuthGuard } from './authguard.service';
+
 
 export const routes: Routes = [
   {
@@ -24,11 +24,7 @@ export const routes: Routes = [
       {
         path: '',
         component: SignupComponent,
-      },
-      {
-        path: 'otp',
-        component: OtpComponent,
-      },
+      }
     ],
   },
   {
@@ -37,7 +33,7 @@ export const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path: 'home',
+    path: 'home', 
     canActivate:[AuthGuard],
     children:[
       {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Directive, ElementRef, Injectable, OnInit } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { LoginService } from './login/login.service';
 
@@ -10,10 +10,9 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     const isAuthenticated = this.loginService.getLoginSuccessful(); 
     if (!isAuthenticated) {
-      this.router.navigate(['/login']); 
+      this.router.navigate(['login']); 
       return false;
     }
     return true;
   }
-
 }
