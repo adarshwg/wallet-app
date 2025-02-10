@@ -13,6 +13,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { TokenModel } from '../modals/token-modal';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SpinnerComponent } from "../spinner/spinner.component";
 @Component({
   selector: 'app-login',
   imports: [
@@ -22,7 +23,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     RouterOutlet,
     NavbarComponent,
     ToastModule,
-  ],
+    SpinnerComponent
+],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })

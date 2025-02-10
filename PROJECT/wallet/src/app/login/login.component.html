@@ -1,5 +1,8 @@
 <app-navbar></app-navbar>
 <p-toast></p-toast>
+@if(isLoading){
+  <app-spinner/>
+}
 <div class="box">
   <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <h1>Welcome 👋</h1>

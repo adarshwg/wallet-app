@@ -8,11 +8,12 @@ import {
 import { UserService } from '../user/user.service';
 import { validateMudraPinFormat } from '../validators/change-pin-validations';
 import { MessageService } from 'primeng/api';
-import { VerifyMudraPinModel } from '../modals/user-credentials-modals';
+import { NewPinModel, VerifyMudraPinModel } from '../modals/user-credentials-modals';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SpinnerComponent } from "../spinner/spinner.component";
 @Component({
   selector: 'app-change-pin',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, SpinnerComponent],
   templateUrl: './change-pin.component.html',
   styleUrl: './change-pin.component.css',
 })
@@ -21,7 +22,8 @@ export class ChangePinComponent {
     ,private messageService: MessageService) {}
   cancel = output();
   destroyRef = inject(DestroyRef)
-  newMudraPin = output<number>();
+  newMudraPin = output<NewPinModel>();
+  isLoading = false;
   changePinForm = new FormGroup({
     currentPin: new FormControl('', {
       validators: [Validators.required, validateMudraPinFormat],
@@ -34,6 +36,7 @@ export class ChangePinComponent {
     }),
   });
   onSubmit() {
+    this.isLoading = true;
     if (this.changePinForm.valid) {
       const currentPin = parseInt(this.changePinForm.value.currentPin!);
       const newPin = this.changePinForm.value.newPin;
@@ -44,9 +47,14 @@ export class ChangePinComponent {
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: (verifyPinResponse: any) => {
+            this.isLoading = false;
             console.log(verifyPinResponse);
+            const newPinModel :NewPinModel = {
+              entered_pin: currentPin,
+              new_pin:Number(newPin)
+            }
             if (verifyPinResponse) {
-                this.newMudraPin.emit(parseInt(newPin!));
+                this.newMudraPin.emit(newPinModel!);
             }else {
               this.messageService.add({
                 severity: 'error',
@@ -56,6 +64,9 @@ export class ChangePinComponent {
               this.changePinForm.reset();
             }
           },
+          error:(err:any)=> {
+            this.isLoading=false;
+          }
         });
       }
       else {
@@ -67,12 +78,14 @@ export class ChangePinComponent {
       }
       
     }else if(this.changePinForm.pristine){
+      this.isLoading=false;
       this.messageService.add({
         severity: 'info',
         summary: 'No values entered',
         detail: 'No values for the pin entered! ',
       });
     }else {
+      this.isLoading=false;
       this.messageService.add({
         severity: 'warn',
         summary: 'Invalid Pin',

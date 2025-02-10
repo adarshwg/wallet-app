@@ -11,5 +11,5 @@ import { WalletBalanceModel } from '../modals/wallet-modals';
 })
 export class ShowWalletComponent{
   usernameInput = input.required<string>()
-  walletBalanceInput = input.required<WalletBalanceModel>()
+  walletBalanceInput = input.required<string>()
 }

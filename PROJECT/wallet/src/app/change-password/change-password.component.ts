@@ -4,10 +4,11 @@ import { UserService } from '../user/user.service';
 import { MessageService } from 'primeng/api';
 import { validatePassword } from '../validators/payment-validation';
 import { NewPassowrdModel, VerifyPasswordModel } from '../modals/user-credentials-modals';
+import { SpinnerComponent } from "../spinner/spinner.component";
 
 @Component({
     selector: 'app-change-password',
-    imports: [ReactiveFormsModule],
+    imports: [ReactiveFormsModule, SpinnerComponent],
     templateUrl: './change-password.component.html',
     styleUrl: './change-password.component.css'
 })
@@ -15,6 +16,7 @@ export class ChangePasswordComponent {
   constructor(private userService:UserService,private messageService:MessageService){}
   cancel = output();
   newPassword = output<NewPassowrdModel>();
+  isLoading= false;
   changePasswordForm = new FormGroup({
     currentPassword: new FormControl('', {
       validators: [Validators.required,validatePassword],
@@ -27,6 +29,7 @@ export class ChangePasswordComponent {
     }),
   });
   onSubmit() {
+    this.isLoading = true;
     if (this.changePasswordForm.valid) {
       const currentPassword = this.changePasswordForm.value.currentPassword!;
       const newPassword = this.changePasswordForm.value.newPassword;
@@ -34,6 +37,7 @@ export class ChangePasswordComponent {
       if(newPassword===confirmNewPassword){
         this.userService.verifyPassword(currentPassword).subscribe({
           next: (verifyPasswordResponse: VerifyPasswordModel) => {
+            this.isLoading=false;
             if (verifyPasswordResponse) {
                 this.newPassword.emit({entered_password:currentPassword,new_password:newPassword!});
             }else {
@@ -43,10 +47,13 @@ export class ChangePasswordComponent {
                 detail: 'Invalid Password entered! ',
               });
             }
-          },
+          },error:(err:any)=> {
+            this.isLoading=false;
+          }
         });
       }
       else {
+        this.isLoading=false;
         this.messageService.add({
           severity: 'warn',
           summary: 'Passwords Do not Match!',
@@ -55,12 +62,14 @@ export class ChangePasswordComponent {
       }
       
     }else if(this.changePasswordForm.pristine){
+      this.isLoading=false;
       this.messageService.add({
         severity: 'info',
         summary: 'No values entered',
         detail: 'No values for the password entered! ',
       });
     }else {
+      this.isLoading=false;
       this.messageService.add({
         severity: 'warn',
         summary: 'Invalid Password',

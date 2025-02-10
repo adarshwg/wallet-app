@@ -7,5 +7,5 @@ export interface SendMoneyModel{
     date:string,
     category:string,
     transactionId:number,
-    remainingBalance:WalletBalanceModel
+    remainingBalance:string
 }

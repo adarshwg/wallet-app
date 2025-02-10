@@ -7,7 +7,7 @@ import { ChangePasswordComponent } from '../change-password/change-password.comp
 import { ChangePinComponent } from '../change-pin/change-pin.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { NewPassowrdModel, UpdateMudraPinModel, UpdatePasswordModel } from '../modals/user-credentials-modals';
+import { NewPassowrdModel, NewPinModel, UpdateMudraPinModel, UpdatePasswordModel } from '../modals/user-credentials-modals';
 import { UserDetailsModel } from '../modals/modals';
 import { SpinnerComponent } from "../spinner/spinner.component";
 @Component({
@@ -76,10 +76,10 @@ export class UserComponent {
   //   // });
   // }
   onChangePasswordStart() {
-    this.isLoading= true;
     this.isChangingPassword = true;
   }
   onChangePassword(newPassword: NewPassowrdModel) {
+    this.isLoading=true;
     console.log('changing the user password');
     this.userService.updatePassword(newPassword).subscribe({
       next: (updatePasswordResponse: any) => {
@@ -102,7 +102,7 @@ export class UserComponent {
     console.log('starting')
     this.isChangingPin = true;
   }
-  onChangeMudraPin(newMudraPin: number) {
+  onChangeMudraPin(newMudraPin: NewPinModel) {
     this.isLoading = true;
     console.log('changing the mudra pin');
     this.userService.updateMudraPin(newMudraPin).subscribe({

@@ -8,10 +8,11 @@ import { SignupModel } from '../modals/user-credentials-modals';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { LoginService } from '../login/login.service';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-signup',
-  imports: [ReactiveFormsModule, RouterLink, NavbarComponent, ToastModule],
+  imports: [ReactiveFormsModule, RouterLink, NavbarComponent, ToastModule,SpinnerComponent],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
@@ -40,8 +41,10 @@ export class SignupComponent {
       ],
     }),
   });
+  isLoading = false;
 
   onSubmit() {
+    this.isLoading=true;
     let formValues = this.signupForm.value;
     const username = formValues.username;
     const email = formValues.email;
@@ -67,6 +70,7 @@ export class SignupComponent {
       console.log(formData);
       this.signupService.signup().subscribe({
         next: (signupResponse: any) => {
+          this.isLoading=false;
           console.log(signupResponse);
           this.messageService.add({
             severity: 'info',
@@ -83,6 +87,7 @@ export class SignupComponent {
           this.router.navigate(['home']);
         },
         error: (err) => {
+          this.isLoading=false;
           this.messageService.add({
             severity: 'info',
             summary: 'Invalid Credentials',

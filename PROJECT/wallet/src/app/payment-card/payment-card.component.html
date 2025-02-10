@@ -1,6 +1,9 @@
 <app-home-nav [walletBalance]="getWalletBalanceValue()()" />
 <app-sidebar />
 <p-toast/>
+@if(isLoading){
+  <app-spinner/>
+}
 @if(paymentConfirmation){
 <app-confirm-payment (cancel)="onCancel()" (mudraPin)="onSubmitMudraPin($event)" />
 } @else {

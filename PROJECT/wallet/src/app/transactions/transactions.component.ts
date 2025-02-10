@@ -66,15 +66,18 @@ export class TransactionsComponent implements OnInit {
     const dateArray = this.date.split('-')
     const year = parseInt(dateArray[0])
     const month = parseInt(dateArray[1])
+    this.isLoading=true;
     this.transactionsService.allTransactionsForMonth(year,month)
     .subscribe(
       {
         next:(monthlyTransction: TransactionModel[])=> {
           console.log(monthlyTransction)
           console.log(monthlyTransction);
-          this.transactions = monthlyTransction.reverse();
+          this.transactions = monthlyTransction;
+          this.isLoading=false;
         },
         error:(err:any)=> {
+          this.isLoading=false;
           if(err.status===400){
             this.messageService.add(
               {
@@ -128,7 +131,7 @@ export class TransactionsComponent implements OnInit {
           this.isLoading = false;
           console.log(currentMonthTransactionsResponse);
           console.log(currentMonthTransactionsResponse);
-          this.transactions = currentMonthTransactionsResponse;
+          this.transactions = currentMonthTransactionsResponse.reverse();
           console.log(this.transactions)
         },
         error:(err:any)=> {
@@ -149,7 +152,7 @@ export class TransactionsComponent implements OnInit {
     this.walletService.getWalletBalance()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: (walletBalanceResponse: WalletBalanceModel) => {
+        next: (walletBalanceResponse: string) => {
           this.walletService.walletBalance.set(walletBalanceResponse);
         },
         error: (err) => {

@@ -34,6 +34,7 @@ import { validateAmount } from '../validators/payment-validation';
 import { ContactTransactionsModel, TransactionsModel } from '../modals/transaction-modals';
 import { SendMoneyModel, WalletBalanceModel } from '../modals/wallet-modals';
 import { VerifyMudraPinModel } from '../modals/user-credentials-modals';
+import { SpinnerComponent } from "../spinner/spinner.component";
 
 @Component({
   selector: 'app-payment-card',
@@ -44,7 +45,8 @@ import { VerifyMudraPinModel } from '../modals/user-credentials-modals';
     ReactiveFormsModule,
     ConfirmPaymentComponent,
     ToastModule,
-  ],
+    SpinnerComponent
+],
   templateUrl: './payment-card.component.html',
   styleUrl: './payment-card.component.css',
 })
@@ -88,6 +90,7 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
       validators: [Validators.required,validateAmount],
     }),
   });
+  isLoading = false;
   onCancel() {
     this.paymentConfirmation = false;
   }
@@ -110,6 +113,7 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
     
   }
   onSubmitMudraPin(mudraPin: number) {
+    this.isLoading=true;
     this.paymentConfirmation = false;
     this.userService.verifyMudraPin(mudraPin).subscribe({
       next: (verifyPinResponse: any) => {
@@ -118,8 +122,13 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
           this.walletService
           .sendMoney(this.contactName, this.enteredAmount, mudraPin)
           .subscribe({
-            next: (verifyPinResponse:SendMoneyModel) => {
+            next: (verifyPinResponse:any) => {
+              this.isLoading=false;
               console.log(verifyPinResponse);
+              const remainingBalance = verifyPinResponse.body.transaction.remainingBalance
+              console.log(verifyPinResponse.body.transaction.remainingBalance,'ijfifjjfkfskfjskl')
+              this.walletService.getWalletBalance()
+              this.walletService.walletBalance.set(remainingBalance)
               this.getContactTransactions();
               this.paymentConfirmation = false;
               this.messageService.add({
@@ -134,6 +143,7 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
             },
             error: (err:any) => {
               //insufficient balance error
+              this.isLoading=false;
               if(err.status==403){
                 this.messageService.add({
                   severity: 'error',
@@ -147,6 +157,7 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
         }
         //incorrect pin entered
         else {
+          this.isLoading=false;
           this.messageService.add({
             severity: 'error',
             summary: 'Payment Unsuccessful',
@@ -155,6 +166,7 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
         }
       },
       error: (err) => {
+        this.isLoading = false;
         console.log('caught hereeee')
         console.log(err);
       },
@@ -162,18 +174,22 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
     this.paymentForm.reset()
   }
   getUsername() {
+    this.isLoading=true;
     this.userService.getUserDetails().subscribe({
       next: (userDetails: UserDetailsModel) => {
+        this.isLoading=false;
         console.log(userDetails);
         this.username = userDetails.username;
       },
     });
   }
   getContactTransactions() {
+    this.isLoading=true;
     this.transactionsService
       .getTransactionsForContact(this.contactName)
       .subscribe({
         next: (contactTransactions: ContactTransactionsModel) => {
+          this.isLoading=false;
           console.log(contactTransactions);
           this.contactTransactions = contactTransactions;
         },
@@ -184,11 +200,14 @@ export class PaymentCardComponent implements OnInit, AfterViewChecked {
   }
 
   getwalletBalance() {
+    this.isLoading=true;
     this.walletService.getWalletBalance().subscribe({
-      next: (walletBalance: WalletBalanceModel) => {
+      next: (walletBalance: string) => {
+        this.isLoading=false;
         this.walletService.walletBalance.set(walletBalance);
       },
       error: (err) => {
+        this.isLoading=false;
         console.log(err);
       },
     });

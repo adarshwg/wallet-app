@@ -10,18 +10,16 @@ import { PaymentURL, WalletBalanceURL } from '../endpoints/wallet-endpoints';
   providedIn: 'root',
 })
 export class WalletService {
-  walletBalance = signal<WalletBalanceModel>({
-    walletBalance:''
-  });
+  walletBalance = signal<string>('');
   constructor(private http: HttpClient){}
-  getWalletBalance() : Observable<WalletBalanceModel> {
+  getWalletBalance() : Observable<string> {
     const token = localStorage.getItem('access_token');
     console.log('gettingggggg')
     return this.http
-    .get<WalletBalanceModel>(WalletBalanceURL, {
+    .get<string>(WalletBalanceURL, {
       headers: new HttpHeaders().set('Authorization','Bearer '+token)
     }).pipe(tap({
-      next:(resData:WalletBalanceModel)=>{
+      next:(resData:string)=>{
         console.log('data is cominggggg')
         console.log(resData)
         this.walletBalance.set(resData)
@@ -41,7 +39,6 @@ export class WalletService {
     }).pipe(tap({
       next:(resData:SendMoneyModel)=>{
         this.walletBalance.set(resData.remainingBalance)
-        //add message of the remaining balance
       }
     }))
   }

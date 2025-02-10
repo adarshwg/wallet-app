@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UpdateMudraPinURL, UpdatePasswordURL, UserDetailsURL, VerifyUserExistsURL } from '../endpoints/user-endpoints';
 import { MudraPinVerificationURL, PasswordVerificationURL } from '../endpoints/auth-endpoints';
-import { NewPassowrdModel, UpdateMudraPinModel, UpdatePasswordModel, VerifyMudraPinModel, VerifyPasswordModel, VerifyUserExistsModel } from '../modals/user-credentials-modals';
+import { NewPassowrdModel, NewPinModel, UpdateMudraPinModel, UpdatePasswordModel, VerifyMudraPinModel, VerifyPasswordModel, VerifyUserExistsModel } from '../modals/user-credentials-modals';
 import { UserDetailsModel } from '../modals/modals';
 import { Observable } from 'rxjs';
 
@@ -37,10 +37,11 @@ export class UserService {
       headers: new HttpHeaders().set('Authorization','Bearer '+token)
     })
   }
-  updateMudraPin(newMudraPin:number) {
+  updateMudraPin(newMudraPin:NewPinModel) {
     const token = localStorage.getItem('access_token');
     return this.http.post(UpdateMudraPinURL, {
-      entered_pin:newMudraPin
+      entered_pin:newMudraPin.entered_pin,
+      new_pin:newMudraPin.new_pin
     },
     {
       headers: new HttpHeaders().set('Authorization','Bearer '+token)

@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { WalletBalanceModel } from '../modals/wallet-modals';
 @Component({
@@ -9,7 +9,7 @@ import { WalletBalanceModel } from '../modals/wallet-modals';
 })
 export class HomeNavComponent {
   constructor(private router:Router){}
-  walletBalance = input.required<WalletBalanceModel>()
+  walletBalance = input.required<string>()
   onWalletClick(){
     this.router.navigate(['home'])
   }

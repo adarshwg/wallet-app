@@ -30,7 +30,7 @@
       (click)="onStartViewingTransaction(transaction)"
       class="transaction"
       *ngFor="
-        let transaction of transactions.reverse()| paginate: {itemsPerPage:5, currentPage:p} 
+        let transaction of transactions| paginate: {itemsPerPage:5, currentPage:p} 
       "
     >
       <div>

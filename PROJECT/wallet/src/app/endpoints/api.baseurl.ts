@@ -1,1 +1,1 @@
-export const BASEURL = 'https://ui.theadarshcodes.xyz'
+export const BASEURL = 'https://api.theadarshcodes.xyz'

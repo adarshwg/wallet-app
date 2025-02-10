@@ -30,11 +30,11 @@ export const routes: Routes = [
   {
     path: 'transactions',
     component: TransactionsComponent,
-    canActivate:[AuthGuard]
+    // canActivate:[AuthGuard]
   },
   {
     path: 'home', 
-    canActivate:[AuthGuard],
+    // canActivate:[AuthGuard],
     children:[
       {
         path: '',
@@ -49,6 +49,6 @@ export const routes: Routes = [
   {
     path: 'user',
     component: UserComponent,
-    canActivate:[AuthGuard]
+    // canActivate:[AuthGuard]
   }  
 ];

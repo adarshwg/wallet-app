@@ -52,16 +52,19 @@ export class HomeComponent implements OnInit {
     this.getUserDetails();
   }
   getRecentContacts() {
+    this.isLoading = true;
     if (!this.contactsService.recentContacts) {
       this.contactsService
         .getRecentContactsData()
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
           next: (recentContactsResponse: RecentContactsModel) => {
+            this.isLoading = false;
             this.recentContacts = recentContactsResponse;
             this.contactsService.recentContacts = recentContactsResponse
           },
           error: (err) => {
+            this.isLoading=false;
             console.log(err);
           },
         });
@@ -94,16 +97,13 @@ export class HomeComponent implements OnInit {
   }
 
   getwalletBalance() {
-    const walletBalance = this.walletService.walletBalance().walletBalance
-    console.log('.........',walletBalance,'.........')
-    if (!walletBalance) {
-      console.log(this.walletService.walletBalance())
       this.isLoading = true;
       this.walletService
         .getWalletBalance()
         .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe({
-          next: (walletBalance: WalletBalanceModel) => {
+          next: (walletBalance: string) => {
+            console.log('balance is ',walletBalance)
             this.isLoading=false;
             this.walletService.walletBalance.set(walletBalance);
           },
@@ -113,8 +113,5 @@ export class HomeComponent implements OnInit {
           },
         });
     }
-    else {
-      console.log('wallet balance is .....',walletBalance)
-    }
-  }
+  
 }

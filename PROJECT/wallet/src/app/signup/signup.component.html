@@ -1,3 +1,6 @@
+@if(isLoading){
+  <app-spinner/>
+}
 <app-navbar />
 <div class="box">
   <form class="signup-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()">

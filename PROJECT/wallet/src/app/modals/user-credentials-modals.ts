@@ -17,6 +17,10 @@ export interface NewPassowrdModel {
   entered_password: string,
   new_password:string
 }
+export interface NewPinModel {
+  entered_pin:number,
+  new_pin:number
+}
 export interface SignupModel{
   username:string,
   entered_password:string,
